@@ -11,7 +11,7 @@
     tools:context="com.example.freeman.asktome.activity.LoginActivity"
     android:orientation="vertical">
 
-   <LinearLayout 
+   <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="horizontal">
@@ -24,8 +24,6 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:id="@+id/campo_user"/>
-
-
    </LinearLayout>
 
     <LinearLayout
@@ -39,6 +37,7 @@
             android:src="@drawable/ic_password"/>
 
         <EditText
+            android:password="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/campo_password"/>
