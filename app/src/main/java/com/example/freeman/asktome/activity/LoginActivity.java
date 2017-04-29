@@ -10,9 +10,13 @@ import android.widget.EditText;
 
 import com.example.freeman.asktome.MainActivity;
 import com.example.freeman.asktome.R;
+import com.example.freeman.asktome.model.Usuario;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private DatabaseReference database;
 
     EditText login;
     EditText password;
@@ -22,6 +26,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        database = FirebaseDatabase.getInstance().getReference("usuarios");
+
+        Usuario usuario = new Usuario();
+        usuario.setUsuario("freeman");
+        usuario.setSenha("123456");
+
+        String userId = database.push().getKey();
+
+        database.child(userId).setValue(usuario);
 
         login = (EditText) findViewById(R.id.campo_user);
         password = (EditText) findViewById(R.id.campo_password);

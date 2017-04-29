@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1013229146379",
+    "firebase_url": "https://asktome-dd836.firebaseio.com",
+    "project_id": "asktome-dd836",
+    "storage_bucket": "asktome-dd836.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013229146379:android:51b415212a106b4d",
+        "android_client_info": {
+          "package_name": "com.example.freeman.asktome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013229146379-58m9cjkpj41o7chehql3l191brtdqib8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFgNlZAzEbmw9leGCBygILlhwN5jDsfcs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

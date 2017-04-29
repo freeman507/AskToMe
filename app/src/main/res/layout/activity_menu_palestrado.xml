@@ -11,10 +11,11 @@
     tools:context="com.example.freeman.asktome.activity.MenuPalestrado">
 
     <ImageButton
+        android:layout_height="32dp"
+        android:src="@drawable/ic_pasta"
         android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_user"/>
+        android:layout_width="0dp"
+        />
 
     <ImageButton
         android:layout_weight="1"

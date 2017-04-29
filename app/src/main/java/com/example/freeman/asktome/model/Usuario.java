@@ -1,57 +1,23 @@
 package com.example.freeman.asktome.model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by freeman on 06/04/17.
  */
 
+@IgnoreExtraProperties
 public class Usuario {
 
-    private Long _id;
-    private String nome;
-    private String sobreNome;
-    private String telefone;
-    private String email;
+    private String usuario;
     private String senha;
-    private boolean palestrante;
 
-    public Long get_id() {
-        return _id;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void set_id(Long _id) {
-        this._id = _id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobreNome() {
-        return sobreNome;
-    }
-
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getSenha() {
@@ -60,13 +26,5 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public boolean isPalestrante() {
-        return palestrante;
-    }
-
-    public void setPalestrante(boolean palestrante) {
-        this.palestrante = palestrante;
     }
 }
