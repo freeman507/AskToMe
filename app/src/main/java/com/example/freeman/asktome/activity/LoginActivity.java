@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance().getReference("usuarios");
 
+        /*
         Usuario usuario = new Usuario();
         usuario.setUsuario("freeman");
         usuario.setSenha("123456");
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         String userId = database.push().getKey();
 
         database.child(userId).setValue(usuario);
+        */
 
         login = (EditText) findViewById(R.id.campo_user);
         password = (EditText) findViewById(R.id.campo_password);
@@ -54,5 +56,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        database.goOffline();
     }
 }
