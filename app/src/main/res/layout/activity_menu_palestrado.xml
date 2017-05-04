@@ -11,15 +11,15 @@
     tools:context="com.example.freeman.asktome.activity.MenuPalestrado">
 
     <ImageButton
-        android:src="@drawable/ic_pasta"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
-
-    <ImageButton
-        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_pasta"/>
+        android:layout_weight="1"
+        android:src="@drawable/ic_user" />
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_pasta" />
 
 </LinearLayout>

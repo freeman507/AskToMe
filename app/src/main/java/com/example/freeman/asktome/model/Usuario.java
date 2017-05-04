@@ -9,15 +9,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Usuario {
 
-    private String usuario;
+    private String login;
     private String senha;
 
     public String getUsuario() {
-        return usuario;
+        return login;
     }
 
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
+        this.login = usuario;
     }
 
     public String getSenha() {

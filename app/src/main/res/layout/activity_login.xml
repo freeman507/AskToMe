@@ -9,7 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.freeman.asktome.activity.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -18,9 +19,10 @@
        <ImageView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:src="@drawable/ic_user"/>
+           android:src="@drawable/ic_user" />
 
        <EditText
+           android:layout_margin="5dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:id="@+id/campo_user"/>
@@ -38,20 +40,35 @@
 
         <EditText
             android:password="true"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/campo_password"/>
+            android:id="@+id/campo_password" />
 
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Entrar"
-        android:id="@+id/btn_entrar"/>
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:id="@+id/btn_entrar" />
 
     <TextView
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recovery_link"
-        android:text="Ainda não possui cadastro"/>
+        android:text="Ainda não possui cadastro?"
+        android:textColor="@color/colorPrimary"
+        android:onClick="cadastrar"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esqueseu a senha?"
+        android:textColor="@color/colorPrimary"
+        android:onClick="recuperarSenha"
+        android:textSize="14sp"/>
 </LinearLayout>
