@@ -15,8 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MenuPalestrado" />
-        <activity android:name=".activity.CadastroActivity"></activity>
+        <activity android:name=".activity.MenuPalestradoActivity" />
+        <activity android:name=".activity.CadastroActivity" />
+        <activity android:name=".activity.MenuPalestranteActivity"></activity>
     </application>
 
 </manifest>

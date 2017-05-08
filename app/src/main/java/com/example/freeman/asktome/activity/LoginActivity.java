@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.freeman.asktome.R;
+import com.example.freeman.asktome.model.Usuario;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,46 +32,9 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        database = FirebaseDatabase.getInstance().getReference("usuarios");
+        database = FirebaseDatabase.getInstance().getReference("usuario");
 
         database.keepSynced(true);
-
-        database.orderByChild("login").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        /*
-        Usuario usuario = new Usuario();
-        usuario.setUsuario("freeman");
-        usuario.setSenha("123456");
-
-        String userId = database.push().getKey();
-
-        database.child(userId).setValue(usuario);
-        */
 
         login = (EditText) findViewById(R.id.campo_user);
         password = (EditText) findViewById(R.id.campo_password);
@@ -79,12 +45,31 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String loginText = login.getText().toString();
-                String passwordText = password.getText().toString();
+                final String passwordText = password.getText().toString();
 
-                if(loginText.equals("aluno") && passwordText.equals("123")) {
-                    Intent intent = new Intent(LoginActivity.this, MenuPalestrado.class);
-                    startActivity(intent);
-                }
+                database.orderByChild("email").equalTo(loginText).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean existe = true;
+                        if (dataSnapshot.exists()) {
+                            Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                            if (passwordText.equals(usuario.getSenha())) {
+                                existe = true;
+                            }
+                        }
+                        if (existe) {
+                            Intent intent = new Intent(LoginActivity.this, MenuPalestradoActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Usuario ou senha inválidos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }

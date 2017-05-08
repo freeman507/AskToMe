@@ -25,7 +25,8 @@
            android:layout_margin="5dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:id="@+id/campo_user"/>
+           android:id="@+id/campo_user"
+           android:hint="E-mail"/>
    </LinearLayout>
 
     <LinearLayout
@@ -43,7 +44,8 @@
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/campo_password" />
+            android:id="@+id/campo_password"
+            android:hint="Senha"/>
 
     </LinearLayout>
     <Button

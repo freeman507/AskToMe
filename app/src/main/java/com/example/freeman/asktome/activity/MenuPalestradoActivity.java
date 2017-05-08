@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.freeman.asktome.R;
 
-public class MenuPalestrado extends AppCompatActivity {
+public class MenuPalestradoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

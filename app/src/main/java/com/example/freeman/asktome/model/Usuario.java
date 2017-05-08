@@ -9,15 +9,53 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Usuario {
 
-    private String login;
+    private String nome;
+    private String sobrenome;
+    private String telefone;
+    private String email;
     private String senha;
+    private boolean palestrante;
 
-    public String getUsuario() {
-        return login;
+    public Usuario() {}
+
+    public String getNome() {
+        return nome;
     }
 
-    public void setUsuario(String usuario) {
-        this.login = usuario;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isPalestrante() {
+        return palestrante;
+    }
+
+    public void setPalestrante(boolean palestrante) {
+        this.palestrante = palestrante;
     }
 
     public String getSenha() {

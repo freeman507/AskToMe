@@ -9,13 +9,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.freeman.asktome.activity.CadastroActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/campo_nome"
         android:hint="Nome"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/campo_sobrenome"
+        android:hint="Sobrenome"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -35,5 +43,25 @@
         android:id="@+id/campo_senha"
         android:inputType="textPassword"
         android:hint="Senha"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Você é Palestrante?"/>
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campo_palestrante"
+        android:text="Palestrante"
+        android:textOn="Sim"
+        android:textOff="Não"/>
+
+    <Button
+        android:id="@+id/btn_cadastrar"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CADASTRAR" />
 
 </LinearLayout>
