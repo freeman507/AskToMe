@@ -2,13 +2,16 @@ package com.example.freeman.asktome.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created by freeman on 06/04/17.
  */
 
 @IgnoreExtraProperties
-public class Usuario {
+public class Usuario implements Serializable {
 
+    private Long _id;
     private String nome;
     private String sobrenome;
     private String telefone;
@@ -16,7 +19,16 @@ public class Usuario {
     private String senha;
     private boolean palestrante;
 
-    public Usuario() {}
+    public Usuario() {
+    }
+
+    public Long get_id() {
+        return _id;
+    }
+
+    public void set_id(Long _id) {
+        this._id = _id;
+    }
 
     public String getNome() {
         return nome;

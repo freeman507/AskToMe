@@ -10,58 +10,67 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.freeman.asktome.activity.CadastroActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:weightSum="7">
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:id="@+id/campo_nome"
-        android:hint="Nome"/>
-
+        android:hint="Nome"
+        android:layout_weight="1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:id="@+id/campo_sobrenome"
-        android:hint="Sobrenome"/>
+        android:hint="Sobrenome"
+        android:layout_weight="1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:id="@+id/campo_telefone"
-        android:hint="Telefone"/>
+        android:hint="Telefone"
+        android:layout_weight="1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
         android:id="@+id/campo_email"
-        android:hint="E-mail"/>
+        android:hint="E-mail"
+        android:layout_weight="1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/campo_senha"
         android:inputType="textPassword"
-        android:hint="Senha"/>
+        android:ems="10"
+        android:id="@+id/campo_senha"
+        android:hint="Senha"
+        android:layout_weight="1" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Você é Palestrante?"/>
-
-    <ToggleButton
-        android:layout_width="wrap_content"
+    <Switch
+        android:text="Palestrante"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/campo_palestrante"
-        android:text="Palestrante"
-        android:textOn="Sim"
-        android:textOff="Não"/>
+        android:checked="false"
+        android:splitTrack="false"
+        android:layout_weight="1" />
 
     <Button
-        android:id="@+id/btn_cadastrar"
-        android:layout_margin="20dp"
-        android:layout_width="wrap_content"
+        android:text="CADASTRAR"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CADASTRAR" />
-
+        android:id="@+id/cadastrar_btn"
+        android:layout_weight="1" />
 </LinearLayout>

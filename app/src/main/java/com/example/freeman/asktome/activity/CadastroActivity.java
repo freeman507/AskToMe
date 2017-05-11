@@ -25,8 +25,9 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText campoTelefone;
     private EditText campoEmail;
     private EditText campoSenha;
-    private ToggleButton toggleButton;
+    private Switch campoPalestrante;
     private Button button;
+    private Usuario usuario;
 
     private DatabaseReference database;
 
@@ -44,9 +45,23 @@ public class CadastroActivity extends AppCompatActivity {
         campoTelefone = (EditText) findViewById(R.id.campo_telefone);
         campoEmail = (EditText) findViewById(R.id.campo_email);
         campoSenha = (EditText) findViewById(R.id.campo_senha);
-        toggleButton = (ToggleButton) findViewById(R.id.campo_palestrante);
+        campoPalestrante = (Switch) findViewById(R.id.campo_palestrante);
 
-        button = (Button) findViewById(R.id.btn_cadastrar);
+        this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+        if(usuario != null) {
+            campoNome.setText(usuario.getNome());
+            campoSobrenome.setText(usuario.getSobrenome());
+            campoTelefone.setText(usuario.getTelefone());
+            campoEmail.setText(usuario.getEmail());
+            campoSenha.setText(usuario.getSenha());
+            if(usuario.isPalestrante()) {
+                campoPalestrante.setChecked(true);
+            } else {
+                campoPalestrante.setChecked(false);
+            }
+        }
+
+        button = (Button) findViewById(R.id.cadastrar_btn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +72,7 @@ public class CadastroActivity extends AppCompatActivity {
                 usuario.setTelefone(campoTelefone.getText().toString());
                 usuario.setEmail(campoEmail.getText().toString());
                 usuario.setSenha(campoSenha.getText().toString());
-                boolean palestrante = toggleButton.getText().toString().equals("Sim");
+                boolean palestrante = campoPalestrante.isChecked();
                 usuario.setPalestrante(palestrante);
                 salvar(usuario);
             }
@@ -74,17 +89,11 @@ public class CadastroActivity extends AppCompatActivity {
                     existe = true;
                 }
                 if(!existe) {
-
                     String userId = database.push().getKey();
                     database.child(userId).setValue(usuario);
-
-                    if(usuario.isPalestrante()) {
-                        Intent intent = new Intent(CadastroActivity.this, MenuPalestranteActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(CadastroActivity.this, MenuPalestradoActivity.class);
-                        startActivity(intent);
-                    }
+                    Intent intent = new Intent(CadastroActivity.this, MenuActivity.class);
+                    intent.putExtra("usuario", usuario);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(CadastroActivity.this, "E-mail já cadastrado", Toast.LENGTH_SHORT).show();
                 }

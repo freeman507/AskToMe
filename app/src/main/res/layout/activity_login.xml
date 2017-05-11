@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -9,68 +10,105 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.freeman.asktome.activity.LoginActivity"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:background="@color/colorAccent"
+    android:theme="@style/AppTheme"
+    android:orientation="vertical">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal">
-       <ImageView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@drawable/ic_user" />
-
-       <EditText
-           android:layout_margin="5dp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/campo_user"
-           android:hint="E-mail"/>
-   </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:text="Ask To Me"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/login_title"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center"
+        android:textSize="56sp"
+        android:textStyle="normal|bold"
+        android:gravity="center" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_password"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
 
         <EditText
-            android:password="true"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/campo_password"
-            android:hint="Senha"/>
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/login_campo_login"
+            android:layout_weight="1"
+            android:hint="E-Mail"
+            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Entrar"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:id="@+id/btn_entrar" />
 
-    <TextView
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ainda não possui cadastro?"
-        android:textColor="@color/colorPrimary"
-        android:onClick="cadastrar"
-        android:textSize="18sp"/>
+        android:layout_weight="1"
+        android:gravity="center">
 
-    <TextView
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/login_campo_senha"
+            android:layout_weight="1"
+            android:hint="Senha"
+            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
+            style="@style/AppTheme"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Esqueseu a senha?"
-        android:textColor="@color/colorPrimary"
-        android:onClick="recuperarSenha"
-        android:textSize="14sp"/>
+        android:layout_weight="1"
+        android:gravity="left|center">
+
+        <Button
+            android:text="Entrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_btn_entrar"
+            android:layout_weight="0"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:text="Ainda não é cadastrado?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_txt_cadastro"
+            android:layout_margin="5dp"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:text="Esqueseu a senha?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_esqueceu_senha"
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
 </LinearLayout>
