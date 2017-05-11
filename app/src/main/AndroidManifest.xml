@@ -13,22 +13,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:label="Login"
-            android:name=".activity.LoginActivity" >
-            <intent-filter >
+            android:name=".activity.LoginActivity"
+            android:label="Login">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.CadastroActivity" />
-        <activity android:name=".activity.MenuActivity" />
-        <activity android:name=".activity.NovaPalestraActivity" />
-        <activity android:name=".activity.MinhaPalestraActivity" />
-        <activity android:name=".activity.ProcurarActivity" />
-
+        <activity
+            android:name=".activity.CadastroActivity"
+            android:label="Minha Conta" />
+        <activity
+            android:name=".activity.MenuActivity"
+            android:label="Menu" />
+        <activity
+            android:name=".activity.NovaPalestraActivity"
+            android:label="Nova Palestra" />
+        <activity
+            android:name=".activity.MinhaPalestraActivity"
+            android:label="Minhas Palestras" />
+        <activity
+            android:name=".activity.ProcurarActivity"
+            android:label="Procurar" />
+        <activity android:label="Filtrar Palestras" android:name=".FiltroActivity"></activity>
     </application>
 
 </manifest>

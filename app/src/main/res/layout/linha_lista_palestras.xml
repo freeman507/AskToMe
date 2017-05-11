@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/AppTheme">
 
 
     <LinearLayout
@@ -28,12 +29,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_prancheta"
+                    app:srcCompat="@drawable/ic_prancheta_preta"
                     android:id="@+id/imageView2"
                     android:layout_weight="1" />
 
                 <TextView
                     android:text="TextView"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/linha_titulo_palestra"
@@ -49,12 +52,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_relogio"
+                    app:srcCompat="@drawable/ic_relogio_preto"
                     android:id="@+id/imageView3"
                     android:layout_weight="1" />
 
                 <TextView
                     android:text="10/10/2010 - 10:00"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/linha_hora_palestra"
@@ -70,39 +75,19 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_codigo"
+                    app:srcCompat="@drawable/ic_local_preto"
                     android:id="@+id/imageView4"
                     android:layout_weight="1" />
 
                 <TextView
                     android:text="TextView"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/linha_codigo_palestra"
                     android:layout_weight="10" />
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10">
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_play"
-                android:id="@+id/entrar_palestra"
-                android:layout_weight="2" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_edit"
-                android:id="@+id/editar_palestra"
-                android:layout_weight="2" />
-
         </LinearLayout>
 
     </LinearLayout>

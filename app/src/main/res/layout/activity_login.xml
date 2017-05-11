@@ -63,8 +63,7 @@
             android:layout_weight="1"
             android:hint="Senha"
             android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/AppTheme"/>
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,14 +74,14 @@
         android:gravity="left|center">
 
         <Button
+            android:id="@+id/login_btn_entrar"
             android:text="Entrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/login_btn_entrar"
             android:layout_weight="0"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

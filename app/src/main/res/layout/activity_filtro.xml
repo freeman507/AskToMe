@@ -1,96 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_cadastro"
+    android:id="@+id/activity_filtro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.freeman.asktome.activity.CadastroActivity"
-    android:orientation="vertical"
-    android:weightSum="7"
-    android:theme="@style/AppTheme"
-    android:background="@color/colorAccent">
-
+    tools:context="com.example.freeman.asktome.FiltroActivity"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
 
     <EditText
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/campo_nome"
-        android:hint="Nome"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base" />
-
-    <EditText
+        android:id="@+id/filtro_codigo"
+        android:layout_weight="0"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
+        android:theme="@style/Theme.App.Base"
+        android:hint="Codigo da Palestra" />
+
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/campo_sobrenome"
-        android:hint="Sobrenome"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
-
-    <EditText
+        android:id="@+id/filtro_titulo"
+        android:layout_weight="0"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
+        android:theme="@style/Theme.App.Base"
+        android:hint="Titulo da Palestra" />
+
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/campo_telefone"
-        android:hint="Telefone"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
-
-    <EditText
+        android:id="@+id/filtro_palestrante"
+        android:layout_weight="0"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
+        android:theme="@style/Theme.App.Base"
+        android:hint="Nome do Palestrante" />
+
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/campo_email"
-        android:hint="E-mail"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
+        android:id="@+id/filtro_data"
+        android:layout_weight="0"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:theme="@style/Theme.App.Base"
+        android:hint="Data da Palestra dd/mm/aaaa" />
 
     <EditText
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/campo_senha"
-        android:hint="Senha"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
-
-    <Switch
-        android:text="Palestrante"
+        android:id="@+id/filtro_hora"
+        android:layout_weight="0"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/campo_palestrante"
-        android:checked="false"
-        android:splitTrack="false"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
+        android:theme="@style/Theme.App.Base"
+        android:hint="Hora da Palestra hh:mm" />
 
     <Button
-        android:id="@+id/cadastrar_btn"
-        android:text="CADASTRAR"
+        android:id="@+id/filtro_btn_filtrar"
+        android:text="FILTRAR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"

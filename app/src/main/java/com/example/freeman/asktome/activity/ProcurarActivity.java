@@ -1,9 +1,13 @@
 package com.example.freeman.asktome.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.freeman.asktome.FiltroActivity;
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Usuario;
@@ -27,6 +31,14 @@ public class ProcurarActivity extends AppCompatActivity {
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
         listView = (ListView) findViewById(R.id.procurar_palestras);
+        Button button = (Button) findViewById(R.id.btn_teste);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProcurarActivity.this, FiltroActivity.class);
+                startActivity(intent);
+            }
+        });
 
         this.usuarios = new ArrayList<>();
         this.usuarios.add(createUsuario());

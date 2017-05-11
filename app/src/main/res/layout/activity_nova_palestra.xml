@@ -10,7 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.freeman.asktome.activity.NovaPalestraActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:theme="@style/AppTheme"
+    android:background="@color/colorAccent">
 
 
     <EditText
@@ -20,7 +22,8 @@
         android:ems="10"
         android:id="@+id/codigo_palestra"
         android:layout_weight="1"
-        android:hint="Código da Palestra" />
+        android:hint="Código da Palestra"
+        android:theme="@style/Theme.App.Base"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -29,7 +32,8 @@
         android:ems="10"
         android:id="@+id/titulo_palestra"
         android:layout_weight="1"
-        android:hint="Titulo da Palestra" />
+        android:hint="Titulo da Palestra"
+        android:theme="@style/Theme.App.Base"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -38,7 +42,8 @@
         android:ems="10"
         android:id="@+id/data_palestra"
         android:hint="Data dd/mm/aaaa"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:theme="@style/Theme.App.Base"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -46,8 +51,9 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/hora_palestra"
-        android:hint="Hora HH:MM"
-        android:layout_weight="1" />
+        android:hint="Hora hh:mm"
+        android:layout_weight="1"
+        android:theme="@style/Theme.App.Base"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -55,8 +61,9 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/duracao_palestra"
-        android:hint="Duração HH:MM"
-        android:layout_weight="1" />
+        android:hint="Duração hh:mm"
+        android:layout_weight="1"
+        android:theme="@style/Theme.App.Base"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -65,7 +72,8 @@
         android:ems="10"
         android:id="@+id/local_palestra"
         android:hint="Endereço"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:theme="@style/Theme.App.Base"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -74,12 +82,16 @@
         android:ems="10"
         android:id="@+id/descricao_palestra"
         android:hint="Descrição"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:theme="@style/Theme.App.Base"/>
 
     <Button
+        android:id="@+id/cadastrar_palestra_btn"
         android:text="Cadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cadastrar_palestra_btn"
-        android:layout_weight="1" />
+        android:layout_weight="0"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"/>
 </LinearLayout>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:theme="@style/AppTheme">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -15,11 +16,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_action_present"
-            android:id="@+id/imageView5"
             android:layout_margin="5dp" />
 
         <TextView
             android:text="Titulo da Palestra"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/titulo_palestra_procurar" />
@@ -35,12 +37,13 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_usuario"
-            android:id="@+id/imageView5"
+            app:srcCompat="@drawable/ic_user"
             android:layout_margin="5dp" />
 
         <TextView
             android:text="TextView"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nome_palestrante_procurar" />
@@ -56,12 +59,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_relogio"
+            app:srcCompat="@drawable/ic_relogio_preto"
             android:id="@+id/imageView5"
             android:layout_margin="5dp" />
 
         <TextView
             android:text="10/10/2010 - 10:00"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/hora_palestra_procurar" />
