@@ -46,9 +46,11 @@ public class CadastroActivity extends AppCompatActivity {
         campoEmail = (EditText) findViewById(R.id.campo_email);
         campoSenha = (EditText) findViewById(R.id.campo_senha);
         campoPalestrante = (Switch) findViewById(R.id.campo_palestrante);
+        button = (Button) findViewById(R.id.cadastrar_btn);
 
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         if(usuario != null) {
+            button.setText("Alterar");
             campoNome.setText(usuario.getNome());
             campoSobrenome.setText(usuario.getSobrenome());
             campoTelefone.setText(usuario.getTelefone());
@@ -60,8 +62,6 @@ public class CadastroActivity extends AppCompatActivity {
                 campoPalestrante.setChecked(false);
             }
         }
-
-        button = (Button) findViewById(R.id.cadastrar_btn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

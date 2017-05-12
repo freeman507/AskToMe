@@ -85,7 +85,7 @@
                     android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/linha_codigo_palestra"
+                    android:id="@+id/linha_local_palestra"
                     android:layout_weight="10" />
             </LinearLayout>
         </LinearLayout>

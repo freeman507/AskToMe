@@ -98,7 +98,9 @@
             android:id="@+id/login_txt_cadastro"
             android:layout_margin="5dp"
             android:textSize="24sp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:onClick="cadastrar"/>
 
         <TextView
             android:text="Esqueseu a senha?"

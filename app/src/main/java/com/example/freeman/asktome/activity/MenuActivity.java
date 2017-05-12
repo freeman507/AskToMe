@@ -10,6 +10,11 @@ import android.widget.LinearLayout;
 
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Usuario;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
@@ -33,10 +38,9 @@ public class MenuActivity extends AppCompatActivity {
         novaPalestraButton = (ImageButton) findViewById(R.id.nova_palestra_btn);
         minhasPalestrasButton = (ImageButton) findViewById(R.id.minhas_palestras_btn);
 
-        Serializable extra = getIntent().getSerializableExtra("usuario");
+        this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
-        this.usuario = new Usuario();
-        if(this.usuario.isPalestrante()) {
+        if(this.usuario != null && !this.usuario.isPalestrante()) {
             layoutPalestrante.setVisibility(View.INVISIBLE);
         }
 

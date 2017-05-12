@@ -6,7 +6,13 @@ import android.widget.ListView;
 
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
+import com.example.freeman.asktome.model.Usuario;
 import com.example.freeman.asktome.view.PalestraListAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,32 +20,37 @@ import java.util.List;
 public class MinhaPalestraActivity extends AppCompatActivity {
 
     private ListView listView;
-    private List<Palestra> palestras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_minha_palestra);
         listView = (ListView) findViewById(R.id.palestras_list);
-        this.palestras = new ArrayList<>();
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        atualizaLista();
+
+        getPalestras();
     }
 
-    private void atualizaLista() {
-        this.listView.setAdapter(new PalestraListAdapter(this, this.palestras));
+    private void atualizaLista(List<Palestra> palestras) {
+        this.listView.setAdapter(new PalestraListAdapter(this, palestras));
     }
 
-    private Palestra createPalestra() {
-        Palestra palestra = new Palestra();
-        palestra.setTitulo("teste");
-        palestra.setHora("10:00");
-        palestra.setData("10/10/2010");
-        palestra.setCodigo("teste");
-        return palestra;
+    private void getPalestras() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("palestra");
+        database.orderByChild("titulo").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Palestra> palestras = new ArrayList<Palestra>();
+                for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
+                    palestras.add(dataSnapshotPalestra.getValue(Palestra.class));
+                }
+                atualizaLista(palestras);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

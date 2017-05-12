@@ -12,6 +12,11 @@ import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Usuario;
 import com.example.freeman.asktome.view.ProcurarListAdater;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,46 +45,29 @@ public class ProcurarActivity extends AppCompatActivity {
             }
         });
 
-        this.usuarios = new ArrayList<>();
-        this.usuarios.add(createUsuario());
-        this.usuarios.add(createUsuario());
-        this.usuarios.add(createUsuario());
-        this.usuarios.add(createUsuario());
-        this.usuarios.add(createUsuario());
-
-        this.palestras = new ArrayList<>();
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
-        this.palestras.add(createPalestra());
+        this.palestras = getPalestras();
         atualizaLista();
+    }
+
+    private List<Palestra> getPalestras() {
+        final List<Palestra> palestras = new ArrayList<>();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("palestra");;
+        database.orderByChild("titulo").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                palestras.add(dataSnapshot.getValue(Palestra.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return palestras;
     }
 
     private void atualizaLista() {
         this.listView.setAdapter(new ProcurarListAdater(this, this.palestras, this.usuarios));
-    }
-
-    private Palestra createPalestra() {
-        Palestra palestra = new Palestra();
-        palestra.setIdPalestrante((long) this.palestras.size()+1);
-        palestra.setTitulo("teste");
-        palestra.setHora("10:00");
-        palestra.setData("10/10/2010");
-        palestra.setCodigo("teste");
-        return palestra;
-    }
-
-    private Usuario createUsuario() {
-        Usuario usuario = new Usuario();
-        usuario.setNome("Nome");
-        usuario.setEmail("Email");
-        usuario.setPalestrante(true);
-        usuario.setSobrenome("sobrenome");
-        usuario.setSenha("123");
-        usuario.setTelefone("Telefone");
-        usuario.set_id((long) (this.usuarios.size() + 1));
-        return usuario;
     }
 
     private List<Usuario> getPalestrantes(List<Usuario> usuarios) {
