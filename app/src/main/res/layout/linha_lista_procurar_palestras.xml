@@ -15,6 +15,28 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_codigo"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:text="codigo da Palestra"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/codigo_palestra_procurar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_action_present"
             android:layout_margin="5dp" />
 
@@ -70,6 +92,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/hora_palestra_procurar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_local_preto"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:text="10/10/2010 - 10:00"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/local_palestra_procurar" />
 
     </LinearLayout>
 

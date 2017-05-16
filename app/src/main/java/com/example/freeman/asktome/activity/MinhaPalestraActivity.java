@@ -20,10 +20,13 @@ import java.util.List;
 public class MinhaPalestraActivity extends AppCompatActivity {
 
     private ListView listView;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
         setContentView(R.layout.activity_minha_palestra);
         listView = (ListView) findViewById(R.id.palestras_list);
@@ -37,7 +40,7 @@ public class MinhaPalestraActivity extends AppCompatActivity {
 
     private void getPalestras() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("palestra");
-        database.orderByChild("titulo").addListenerForSingleValueEvent(new ValueEventListener() {
+        database.orderByChild("emailPalestrante").equalTo(this.usuario.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Palestra> palestras = new ArrayList<Palestra>();

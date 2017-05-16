@@ -71,6 +71,8 @@ public class NovaPalestraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Palestra palestra = new Palestra();
+                palestra.setNomePalestrante(usuario.getNome() + " " + usuario.getSobrenome());
+                palestra.setEmailPalestrante(usuario.getEmail());
                 palestra.setCodigo(campoCodigo.getText().toString());
                 palestra.setTitulo(campoTitulo.getText().toString());
                 palestra.setDescricao(campoDescricao.getText().toString());

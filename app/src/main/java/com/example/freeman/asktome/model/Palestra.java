@@ -9,8 +9,8 @@ import java.util.Date;
 
 public class Palestra implements Serializable {
 
-    private Long _id;
-    private Long idPalestrante;
+    private String nomePalestrante;
+    private String emailPalestrante;
     private String codigo;
     private String titulo;
     private String data;
@@ -22,20 +22,20 @@ public class Palestra implements Serializable {
     public Palestra() {
     }
 
-    public Long get_id() {
-        return _id;
+    public String getNomePalestrante() {
+        return nomePalestrante;
     }
 
-    public void set_id(Long _id) {
-        this._id = _id;
+    public void setNomePalestrante(String nomePalestrante) {
+        this.nomePalestrante = nomePalestrante;
     }
 
-    public Long getIdPalestrante() {
-        return idPalestrante;
+    public String getEmailPalestrante() {
+        return emailPalestrante;
     }
 
-    public void setIdPalestrante(Long idPalestrante) {
-        this.idPalestrante = idPalestrante;
+    public void setEmailPalestrante(String emailPalestrante) {
+        this.emailPalestrante = emailPalestrante;
     }
 
     public String getCodigo() {

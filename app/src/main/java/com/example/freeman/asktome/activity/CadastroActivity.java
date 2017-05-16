@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CadastroActivity extends AppCompatActivity {
 
     private EditText campoNome;
@@ -28,6 +31,7 @@ public class CadastroActivity extends AppCompatActivity {
     private Switch campoPalestrante;
     private Button button;
     private Usuario usuario;
+    private String acao;
 
     private DatabaseReference database;
 
@@ -50,6 +54,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         if(usuario != null) {
+            this.acao = "editar";
             button.setText("Alterar");
             campoNome.setText(usuario.getNome());
             campoSobrenome.setText(usuario.getSobrenome());
@@ -61,6 +66,8 @@ public class CadastroActivity extends AppCompatActivity {
             } else {
                 campoPalestrante.setChecked(false);
             }
+        } else {
+            acao = "cadastrar";
         }
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -74,18 +81,25 @@ public class CadastroActivity extends AppCompatActivity {
                 usuario.setSenha(campoSenha.getText().toString());
                 boolean palestrante = campoPalestrante.isChecked();
                 usuario.setPalestrante(palestrante);
-                salvar(usuario);
+                salvar(usuario, acao);
             }
         });
     }
 
-    private void salvar(final Usuario usuario) {
+    private void salvar(final Usuario usuario, final String acao) {
         String email = usuario.getEmail();
         database.orderByChild("email").equalTo(email.toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean existe = false;
                 if(dataSnapshot.exists()) {
+                    if(acao.equals("editar")) {
+                        editar(dataSnapshot, usuario);
+                        Intent intent = new Intent(CadastroActivity.this, MenuActivity.class);
+                        intent.putExtra("usuario", usuario);
+                        startActivity(intent);
+                        return;
+                    }
                     existe = true;
                 }
                 if(!existe) {
@@ -104,5 +118,11 @@ public class CadastroActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void editar(DataSnapshot dataSnapshot, Usuario usuario) {
+        Map<String, Object> update = new HashMap<String, Object>();
+        update.put(dataSnapshot.getKey(), usuario);
+        this.database.updateChildren(update);
     }
 }

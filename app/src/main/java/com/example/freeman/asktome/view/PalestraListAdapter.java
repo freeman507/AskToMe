@@ -45,10 +45,12 @@ public class PalestraListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.linha_lista_palestras, null);
+        TextView codigo = (TextView) view.findViewById(R.id.linha_codigo_palestra);
         TextView titulo = (TextView) view.findViewById(R.id.linha_titulo_palestra);
         TextView hora = (TextView) view.findViewById(R.id.linha_hora_palestra);
         TextView local = (TextView) view.findViewById(R.id.linha_local_palestra);
         Palestra palestra = this.palestras.get(position);
+        codigo.setText(palestra.getCodigo());
         titulo.setText(palestra.getTitulo());
         hora.setText(palestra.getData() + " - "+ palestra.getHora());
         local.setText(palestra.getEndereco());

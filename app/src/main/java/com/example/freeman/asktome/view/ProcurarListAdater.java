@@ -12,6 +12,8 @@ import com.example.freeman.asktome.activity.ProcurarActivity;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Usuario;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -21,13 +23,11 @@ import java.util.List;
 public class ProcurarListAdater extends BaseAdapter {
 
     private List<Palestra> palestras;
-    private List<Usuario> palestrantes;
     private LayoutInflater inflater;
 
-    public ProcurarListAdater(Context context, List<Palestra> palestras, List<Usuario> palestrantes) {
+    public ProcurarListAdater(Context context, List<Palestra> palestras) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.palestras = palestras;
-        this.palestrantes = palestrantes;
     }
 
     @Override
@@ -48,26 +48,21 @@ public class ProcurarListAdater extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Palestra palestra = this.palestras.get(position);
-        Usuario palestrante = filterByIdPalestrante(palestra.getIdPalestrante(), this.palestrantes);
         View view = inflater.inflate(R.layout.linha_lista_procurar_palestras, null);
 
+        TextView codigoTxtView = (TextView) view.findViewById(R.id.codigo_palestra_procurar);
         TextView tituloTxtView = (TextView) view.findViewById(R.id.titulo_palestra_procurar);
         TextView palestranteTxtView = (TextView) view.findViewById(R.id.nome_palestrante_procurar);
         TextView horaTxtView = (TextView) view.findViewById(R.id.hora_palestra_procurar);
+        TextView localTxtView = (TextView) view.findViewById(R.id.local_palestra_procurar);
 
+        codigoTxtView.setText(palestra.getCodigo());
         tituloTxtView.setText(palestra.getTitulo());
-        palestranteTxtView.setText(palestrante.getNome() + " " + palestrante.getSobrenome());
+        palestranteTxtView.setText(palestra.getNomePalestrante());
         horaTxtView.setText(palestra.getData() + " - " + palestra.getHora());
+        localTxtView.setText(palestra.getEndereco());
 
         return view;
     }
 
-    private Usuario filterByIdPalestrante(Long idPalestrante, List<Usuario> palestrantes) {
-        for (Usuario palestrante: palestrantes) {
-            if(palestrante.get_id().equals(idPalestrante)) {
-                return palestrante;
-            }
-        }
-        return null;
-    }
 }
