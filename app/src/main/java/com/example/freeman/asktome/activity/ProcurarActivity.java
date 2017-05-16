@@ -94,41 +94,27 @@ public class ProcurarActivity extends AppCompatActivity {
         this.listView.setAdapter(new ProcurarListAdater(this, palestras));
     }
 
-    private List<Usuario> getPalestrantes(List<Usuario> usuarios) {
-        List<Usuario> palestrantes = new ArrayList<>();
-        for (Usuario usuario: usuarios) {
-            if(usuario.isPalestrante()) {
-                palestrantes.add(usuario);
-            }
-        }
-        return palestrantes;
-    }
-
-
-    public boolean onCreateOptionsMenu2(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.filtro, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        menu.add(0, FILTRAR, 0, "Filtrar");
-
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-
         switch (item.getItemId()) {
-            case FILTRAR:
+            case R.id.action_filter:
                 startActivityForResult(new Intent(this, FiltroActivity.class), FILTRAR);
-        }
+                return true;
 
+            case R.id.action_remove_filter:
+                getPalestras();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.filtro,menu);
         return true;
     }
 }

@@ -1,10 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/item1"
-        android:title="teste"
-        android:icon="@drawable/ic_filter" />
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter"
+        android:title="Filtrar"
+        app:showAsAction="ifRoom"/>
 
-
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_remove_filter"
+        android:icon="@drawable/ic_filter_remove"
+        android:title="Remover filtros"
+        app:showAsAction="ifRoom"/>
 
 </menu>
