@@ -62,7 +62,7 @@ public class ProcurarActivity extends AppCompatActivity {
                 List<Palestra> palestras = new ArrayList<Palestra>();
                 for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
                     Palestra palestra = dataSnapshotPalestra.getValue(Palestra.class);
-                    if(codigo.isEmpty() || !palestra.getCodigo().toLowerCase().contains(codigo.toLowerCase())) {
+                    if(codigo.isEmpty() || !palestra.getCodigo().toLowerCase().equals(codigo.toLowerCase())) {
                         if(titulo.isEmpty() || !palestra.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
                             if(palestrante.isEmpty() || !palestra.getNomePalestrante().toLowerCase().contains(palestrante.toLowerCase())) {
                                 continue;

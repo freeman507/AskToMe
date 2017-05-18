@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -60,6 +62,8 @@ public class CadastroActivity extends AppCompatActivity {
             campoSobrenome.setText(usuario.getSobrenome());
             campoTelefone.setText(usuario.getTelefone());
             campoEmail.setText(usuario.getEmail());
+            campoEmail.setEnabled(false);
+            campoEmail.setTextColor(getResources().getColor(R.color.colorSecundary));
             campoSenha.setText(usuario.getSenha());
             if(usuario.isPalestrante()) {
                 campoPalestrante.setChecked(true);
@@ -73,15 +77,46 @@ public class CadastroActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Usuario usuario = new Usuario();
-                usuario.setNome(campoNome.getText().toString());
-                usuario.setSobrenome(campoSobrenome.getText().toString());
-                usuario.setTelefone(campoTelefone.getText().toString());
-                usuario.setEmail(campoEmail.getText().toString());
-                usuario.setSenha(campoSenha.getText().toString());
-                boolean palestrante = campoPalestrante.isChecked();
-                usuario.setPalestrante(palestrante);
-                salvar(usuario, acao);
+
+                String nome = campoNome.getText().toString();
+                String sobrenome = campoSobrenome.getText().toString();
+                String telefone = campoTelefone.getText().toString();
+                String email = campoEmail.getText().toString();
+                String senha = campoSenha.getText().toString();
+                boolean cadastrar = true;
+                if(nome.isEmpty()) {
+                    Toast.makeText(CadastroActivity.this, "Campo nome está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(sobrenome.isEmpty()) {
+                    Toast.makeText(CadastroActivity.this, "Campo sobrenome está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(telefone.isEmpty()) {
+                    Toast.makeText(CadastroActivity.this, "Campo telefone está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+                Matcher m = p.matcher(email);
+                if (!m.find()) {
+                    Toast.makeText(CadastroActivity.this, "Informe um e-mail valido", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(senha.isEmpty() || senha.length() < 6) {
+                    Toast.makeText(CadastroActivity.this, "A senha deve ter pelo menos 6 digitos", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(cadastrar) {
+                    Usuario usuario = new Usuario();
+                    usuario.setNome(nome);
+                    usuario.setSobrenome(sobrenome);
+                    usuario.setTelefone(telefone);
+                    usuario.setEmail(email);
+                    usuario.setSenha(senha);
+                    boolean palestrante = campoPalestrante.isChecked();
+                    usuario.setPalestrante(palestrante);
+                    salvar(usuario, acao);
+                }
             }
         });
     }
