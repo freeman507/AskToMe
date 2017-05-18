@@ -28,7 +28,11 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        int flags = getIntent().getFlags();
+
+        if(flags != 0) {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
 
         database = FirebaseDatabase.getInstance().getReference("usuario");
 
@@ -76,5 +80,11 @@ public class LoginActivity extends Activity {
     public void cadastrar(View view) {
         Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseDatabase.getInstance().goOffline();
     }
 }

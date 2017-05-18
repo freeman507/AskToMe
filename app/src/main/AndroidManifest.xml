@@ -37,7 +37,7 @@
         <activity
             android:name=".activity.ProcurarActivity"
             android:label="Procurar" />
-        <activity android:label="Filtrar Palestras" android:name=".FiltroActivity"></activity>
+        <activity android:label="Procurar Palestra" android:name=".FiltroActivity"></activity>
     </application>
 
 </manifest>

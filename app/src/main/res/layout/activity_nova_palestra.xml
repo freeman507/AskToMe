@@ -35,25 +35,34 @@
         android:hint="Titulo da Palestra"
         android:theme="@style/Theme.App.Base"/>
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/data_palestra"
-        android:hint="Data dd/mm/aaaa"
         android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
+        android:gravity="center">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/hora_palestra"
-        android:hint="Hora hh:mm"
-        android:layout_weight="1"
-        android:theme="@style/Theme.App.Base"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/data_palestra"
+            android:hint="Data dd/mm/aaaa"
+            android:layout_weight="1"
+            android:theme="@style/Theme.App.Base"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/hora_palestra"
+            android:hint="Hora hh:mm"
+            android:layout_weight="1"
+            android:theme="@style/Theme.App.Base"/>
+
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"

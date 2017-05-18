@@ -4,14 +4,14 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_filter"
+        android:icon="@drawable/ic_lupa_accent"
         android:title="Filtrar"
         app:showAsAction="ifRoom"/>
 
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_remove_filter"
-        android:icon="@drawable/ic_filter_remove"
-        android:title="Remover filtros"
-        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_voltar"
+        android:icon="@drawable/ic_action_back_asccent"
+        android:title="Menu"
+        app:showAsAction="collapseActionView"/>
 
 </menu>

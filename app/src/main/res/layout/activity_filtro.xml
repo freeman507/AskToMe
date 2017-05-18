@@ -51,35 +51,9 @@
         android:theme="@style/Theme.App.Base"
         android:hint="Nome do Palestrante" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/filtro_data"
-        android:layout_weight="0"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:theme="@style/Theme.App.Base"
-        android:hint="Data da Palestra dd/mm/aaaa" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/filtro_hora"
-        android:layout_weight="0"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:theme="@style/Theme.App.Base"
-        android:hint="Hora da Palestra hh:mm" />
-
     <Button
         android:id="@+id/filtro_btn_filtrar"
-        android:text="FILTRAR"
+        android:text="PROCURAR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"

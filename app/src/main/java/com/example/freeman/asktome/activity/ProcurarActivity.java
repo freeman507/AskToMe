@@ -10,7 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.freeman.asktome.FiltroActivity;
 import com.example.freeman.asktome.R;
@@ -31,8 +33,10 @@ public class ProcurarActivity extends AppCompatActivity {
     private ListView listView;
     private List<Usuario> usuarios;
     private Usuario usuario;
+    private static final int VOLTAR = 0;
     private static final int FILTRAR = 1;
     private Palestra palestra;
+    private List<Palestra> palestras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,40 +49,27 @@ public class ProcurarActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.procurar_palestras);
 
         if(this.palestra != null) {
-            getPalestras(this.palestra.getCodigo());
-        } else {
-            getPalestras();
+            getPalestras(this.palestra.getCodigo(), this.palestra.getTitulo(), this.palestra.getNomePalestrante());
         }
 
     }
 
-    private void getPalestras(String codigo) {
+    private void getPalestras(final String codigo, final String titulo, final String palestrante) {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("palestra");
-        database.orderByChild("codigo").equalTo(codigo).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.orderByChild("codigo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Palestra> palestras = new ArrayList<Palestra>();
                 for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
-                    palestras.add(dataSnapshotPalestra.getValue(Palestra.class));
-                }
-                atualizaLista(palestras);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void getPalestras() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("palestra");
-        database.orderByChild("titulo").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Palestra> palestras = new ArrayList<Palestra>();
-                for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
-                    palestras.add(dataSnapshotPalestra.getValue(Palestra.class));
+                    Palestra palestra = dataSnapshotPalestra.getValue(Palestra.class);
+                    if(codigo.isEmpty() || !palestra.getCodigo().toLowerCase().contains(codigo.toLowerCase())) {
+                        if(titulo.isEmpty() || !palestra.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
+                            if(palestrante.isEmpty() || !palestra.getNomePalestrante().toLowerCase().contains(palestrante.toLowerCase())) {
+                                continue;
+                            }
+                        }
+                    }
+                    palestras.add(palestra);
                 }
                 atualizaLista(palestras);
             }
@@ -91,20 +82,30 @@ public class ProcurarActivity extends AppCompatActivity {
     }
 
     private void atualizaLista(List<Palestra> palestras) {
-        this.listView.setAdapter(new ProcurarListAdater(this, palestras));
+        this.palestras = palestras;
+        this.listView.setAdapter(new ProcurarListAdater(this, this.palestras));
+        if(this.palestras != null && !this.palestras.isEmpty()) {
+            LinearLayout msg = (LinearLayout) findViewById(R.id.procurar_msg);
+            msg.removeAllViews();
+        } else {
+            Toast.makeText(ProcurarActivity.this, "Nenhuma palestra encontrada", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
         switch (item.getItemId()) {
             case R.id.action_filter:
-                startActivityForResult(new Intent(this, FiltroActivity.class), FILTRAR);
+                intent = new Intent(this, FiltroActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                startActivityForResult(intent, FILTRAR);
                 return true;
-
-            case R.id.action_remove_filter:
-                getPalestras();
+            case R.id.action_voltar:
+                intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                startActivityForResult(intent, VOLTAR);
                 return true;
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

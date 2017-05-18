@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.freeman.asktome.FiltroActivity;
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Usuario;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +29,7 @@ public class MenuActivity extends AppCompatActivity {
     private ImageButton novaPalestraButton;
     private ImageButton minhasPalestrasButton;
     private Usuario usuario;
+    private static final int LOG_OUT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,5 +83,27 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.action_voltar ) {
+            finish();
+            return true;
+        }
+
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, LOG_OUT);
+                return true;
+        }
+        return false;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
     }
 }
