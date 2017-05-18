@@ -70,18 +70,53 @@ public class NovaPalestraActivity extends AppCompatActivity {
         cadastrarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Palestra palestra = new Palestra();
-                palestra.setNomePalestrante(usuario.getNome() + " " + usuario.getSobrenome());
-                palestra.setEmailPalestrante(usuario.getEmail());
-                palestra.setCodigo(campoCodigo.getText().toString());
-                palestra.setTitulo(campoTitulo.getText().toString());
-                palestra.setDescricao(campoDescricao.getText().toString());
-                palestra.setEndereco(campoEndereço.getText().toString());
-                palestra.setData(campoData.getText().toString());
-                palestra.setDuracao(campoDuracao.getText().toString());
-                palestra.setHora(campoHora.getText().toString());
-                palestra.setEndereco(campoEndereço.getText().toString());
-                salvar(palestra);
+                String codigo = campoCodigo.getText().toString();
+                String titulo = campoTitulo.getText().toString();
+                String descricao = campoDescricao.getText().toString();
+                String endereco = campoEndereço.getText().toString();
+                String data = campoData.getText().toString();
+                String duracao = campoDuracao.getText().toString();
+                String hora = campoHora.getText().toString();
+                boolean cadastrar = true;
+
+                if(codigo.isEmpty()) {
+                    Toast.makeText(NovaPalestraActivity.this, "Campo codigo está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(titulo.isEmpty()) {
+                    Toast.makeText(NovaPalestraActivity.this, "Campo titulo da palestra está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(endereco.isEmpty()) {
+                    Toast.makeText(NovaPalestraActivity.this, "Campo endereço está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(data.isEmpty()) {
+                    Toast.makeText(NovaPalestraActivity.this, "Campo data está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(duracao.isEmpty()) {
+                    Toast.makeText(NovaPalestraActivity.this, "Campo duração da palestra está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+                if(hora.isEmpty()) {
+                    Toast.makeText(NovaPalestraActivity.this, "Campo hora da palestra está vazio", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
+
+                if(cadastrar) {
+                    Palestra palestra = new Palestra();
+                    palestra.setNomePalestrante(usuario.getNome() + " " + usuario.getSobrenome());
+                    palestra.setEmailPalestrante(usuario.getEmail());
+                    palestra.setCodigo(codigo);
+                    palestra.setTitulo(titulo);
+                    palestra.setDescricao(descricao);
+                    palestra.setEndereco(endereco);
+                    palestra.setData(data);
+                    palestra.setDuracao(duracao);
+                    palestra.setHora(hora);
+                    salvar(palestra);
+                }
             }
         });
     }
