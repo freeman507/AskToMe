@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_info_palestra"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.freeman.asktome.InfoPalestraActivity"
+    android:theme="@style/AppTheme"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    android:gravity="center|top">
+
+
+    <TextView
+        android:text="Titulo da Palestra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorSecundary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_titulo_palestra"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic|bold"/>
+
+    <TextView
+        android:text="Descrição"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorSecundary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_desc_palestra"
+        android:textSize="14sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="Palestrante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorSecundary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_palestrante_palestra"
+        android:textSize="14sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="Local"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorSecundary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_local_palestra"
+        android:textSize="14sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="Data e Horário"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView10"
+        android:textSize="16sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorSecundary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_data_hora_palestra"
+        android:textSize="14sp"
+        android:layout_margin="5dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+</LinearLayout>

@@ -1,7 +1,10 @@
 package com.example.freeman.asktome.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.freeman.asktome.R;
@@ -21,6 +24,8 @@ public class MinhaPalestraActivity extends AppCompatActivity {
 
     private ListView listView;
     private Usuario usuario;
+    private List<Palestra> palestras;
+    private static int ENTRAR = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,18 @@ public class MinhaPalestraActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_minha_palestra);
         listView = (ListView) findViewById(R.id.palestras_list);
+
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Palestra palestra = palestras.get(position);
+                Intent intent = new Intent(MinhaPalestraActivity.this, StreamPerguntaPalestranteActivity.class);
+                intent.putExtra("palestra", palestra);
+                intent.putExtra("usuario", usuario);
+                startActivityForResult(intent, ENTRAR);
+            }
+        });
 
         getPalestras();
     }
@@ -43,7 +60,7 @@ public class MinhaPalestraActivity extends AppCompatActivity {
         database.orderByChild("emailPalestrante").equalTo(this.usuario.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Palestra> palestras = new ArrayList<Palestra>();
+                palestras = new ArrayList<Palestra>();
                 for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
                     palestras.add(dataSnapshotPalestra.getValue(Palestra.class));
                 }

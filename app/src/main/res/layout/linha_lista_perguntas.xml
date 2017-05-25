@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_user_primary_color"
+            android:id="@+id/imageView"
+            android:layout_weight="0"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nome_usuario_txt"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="normal|bold"
+            android:layout_weight="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_pergunta_primary_color"
+            android:id="@+id/imageView2"
+            android:layout_weight="0"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pergunta_usuario_txt"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="normal|bold"/>
+    </LinearLayout>
+
+</LinearLayout>

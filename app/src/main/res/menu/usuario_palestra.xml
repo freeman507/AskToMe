@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_info_palestra"
+        android:icon="@drawable/ic_info_color_accent"
+        android:title="Informação"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_sair"
+        android:icon="@drawable/ic_sair_accent"
+        android:title="Sair"
+        app:showAsAction="collapseActionView"/>
+
+</menu>

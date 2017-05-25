@@ -37,7 +37,19 @@
         <activity
             android:name=".activity.ProcurarActivity"
             android:label="Procurar" />
-        <activity android:label="Procurar Palestra" android:name=".FiltroActivity"></activity>
+        <activity
+            android:name=".activity.FiltroActivity"
+            android:label="Procurar Palestra" />
+        <activity
+            android:name=".activity.StreamPerguntaUsuarioActivity"
+            android:label="Palestra" />
+        <activity
+            android:name=".activity.PerguntarActivity"
+            android:label="Perguntar" />
+        <activity
+            android:name=".activity.StreamPerguntaPalestranteActivity"
+            android:label="Palestra" />
+        <activity android:label="Informações da Palestra" android:name=".InfoPalestraActivity"></activity>
     </application>
 
 </manifest>

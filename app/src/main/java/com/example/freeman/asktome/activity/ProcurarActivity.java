@@ -1,20 +1,16 @@
 package com.example.freeman.asktome.activity;
 
-import android.app.ActionBar;
-import android.content.ClipData;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.freeman.asktome.FiltroActivity;
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Usuario;
@@ -35,6 +31,7 @@ public class ProcurarActivity extends AppCompatActivity {
     private Usuario usuario;
     private static final int VOLTAR = 0;
     private static final int FILTRAR = 1;
+    private static final int ENTRAR = 2;
     private Palestra palestra;
     private List<Palestra> palestras;
 
@@ -46,11 +43,23 @@ public class ProcurarActivity extends AppCompatActivity {
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         this.palestra = (Palestra) getIntent().getSerializableExtra("palestra");
 
-        listView = (ListView) findViewById(R.id.procurar_palestras);
+        this.listView = (ListView) findViewById(R.id.procurar_palestras);
 
         if(this.palestra != null) {
             getPalestras(this.palestra.getCodigo(), this.palestra.getTitulo(), this.palestra.getNomePalestrante());
         }
+
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Palestra palestra = palestras.get(position);
+                Intent intent = new Intent(ProcurarActivity.this, StreamPerguntaUsuarioActivity.class);
+                intent.putExtra("palestra", palestra);
+                intent.putExtra("usuario", usuario);
+                startActivityForResult(intent, ENTRAR);
+            }
+        });
 
     }
 
