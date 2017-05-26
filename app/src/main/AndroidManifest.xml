@@ -49,7 +49,7 @@
         <activity
             android:name=".activity.StreamPerguntaPalestranteActivity"
             android:label="Palestra" />
-        <activity android:label="Informações da Palestra" android:name=".InfoPalestraActivity"></activity>
+        <activity android:label="Informações da Palestra" android:name=".activity.InfoPalestraActivity"></activity>
     </application>
 
 </manifest>

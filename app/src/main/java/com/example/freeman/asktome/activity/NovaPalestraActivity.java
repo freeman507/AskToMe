@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
+import com.example.freeman.asktome.model.Pergunta;
 import com.example.freeman.asktome.model.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class NovaPalestraActivity extends AppCompatActivity {
 
@@ -35,6 +39,8 @@ public class NovaPalestraActivity extends AppCompatActivity {
 
     private Usuario usuario;
     private Palestra palestra;
+    private String acao;
+    private String codigoPalestra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +64,18 @@ public class NovaPalestraActivity extends AppCompatActivity {
         campoDescricao = (EditText) findViewById(R.id.descricao_palestra);
         cadastrarButton = (Button) findViewById(R.id.cadastrar_palestra_btn);
 
+        this.acao = "nova";
         if(palestra != null) {
             campoCodigo.setText(palestra.getCodigo());
             campoTitulo.setText(palestra.getTitulo());
             campoDescricao.setText(palestra.getDescricao());
             campoEndereço.setText(palestra.getEndereco());
             campoData.setText(palestra.getData());
+            campoHora.setText(palestra.getHora());
             campoDuracao.setText(palestra.getDuracao());
+            cadastrarButton.setText("EDITAR");
+            this.acao = "editar";
+            this.codigoPalestra = palestra.getCodigo();
         }
 
         cadastrarButton.setOnClickListener(new View.OnClickListener() {
@@ -121,23 +132,24 @@ public class NovaPalestraActivity extends AppCompatActivity {
         });
     }
 
-    private void salvar(final Palestra palestra) {
-        String codigo = palestra.getCodigo();
+    private void salvar(final Palestra p) {
+        String codigo = acao.equals("nova") ? p.getCodigo() : this.codigoPalestra;
         database.orderByChild("codigo").equalTo(codigo.toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean existe = false;
-                if(dataSnapshot.exists()) {
-                    existe = true;
-                }
-                if(!existe) {
-                    String userId = database.push().getKey();
-                    database.child(userId).setValue(palestra);
-                    Intent intent = new Intent(NovaPalestraActivity.this, MenuActivity.class);
-                    intent.putExtra("usuario", usuario);
-                    startActivity(intent);
+
+                if(acao.equals("nova")) {
+                    boolean existe = false;
+                    if (dataSnapshot.exists()) {
+                        existe = true;
+                    }
+                    if (!existe) {
+                        cadastrar(p);
+                    } else {
+                        Toast.makeText(NovaPalestraActivity.this, "Código já cadastrado", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(NovaPalestraActivity.this, "Código já cadastrado", Toast.LENGTH_SHORT).show();
+                    editar(p, dataSnapshot);
                 }
             }
 
@@ -146,6 +158,52 @@ public class NovaPalestraActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void editar(Palestra p, DataSnapshot dataSnapshot) {
+        if(!p.getCodigo().equals(this.codigoPalestra)) {
+            atualizaPerguntas(p.getCodigo());
+        }
+        for(DataSnapshot data : dataSnapshot.getChildren()) {
+            String key = data.getKey();
+            Map<String, Object> map = new HashMap<>();
+            map.put(key, p);
+            database.updateChildren(map);
+        }
+        Intent intent = new Intent(NovaPalestraActivity.this, StreamPerguntaPalestranteActivity.class);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("palestra", p);
+        startActivity(intent);
+    }
+
+    private void atualizaPerguntas(final String codigo) {
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("pergunta");
+        db.orderByChild("codigoPalestra").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()) {
+                    String key = data.getKey();
+                    Pergunta value = data.getValue(Pergunta.class);
+                    value.setCodigoPalestra(codigo);
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put(key, value);
+                    db.updateChildren(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void cadastrar(Palestra palestra) {
+        String userId = database.push().getKey();
+        database.child(userId).setValue(palestra);
+        Intent intent = new Intent(NovaPalestraActivity.this, MenuActivity.class);
+        intent.putExtra("usuario", usuario);
+        startActivity(intent);
     }
 
     private String getStringTime(Date time) {

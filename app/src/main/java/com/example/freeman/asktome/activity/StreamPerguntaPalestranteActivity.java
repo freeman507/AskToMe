@@ -1,7 +1,10 @@
 package com.example.freeman.asktome.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.freeman.asktome.R;
@@ -26,6 +29,8 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
     private Palestra palestra;
     private Usuario usuario;
     private List<Pergunta> perguntas;
+    private static int EDITAR = 1;
+    private static int SAIR = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,5 +66,34 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_palestra_editar:
+                intent = new Intent(this, NovaPalestraActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                intent.putExtra("palestra", this.palestra);
+                startActivityForResult(intent, EDITAR);
+                return true;
+            case R.id.action_palestrante_sair:
+                intent = new Intent(this, MinhaPalestraActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                intent.putExtra("palestra", this.palestra);
+                startActivityForResult(intent, SAIR);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.palestrante_palestra,menu);
+        return true;
     }
 }

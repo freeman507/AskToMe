@@ -1,9 +1,10 @@
-package com.example.freeman.asktome;
+package com.example.freeman.asktome.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Usuario;
 

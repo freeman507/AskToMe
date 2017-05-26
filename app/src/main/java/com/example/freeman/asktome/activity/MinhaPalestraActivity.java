@@ -3,6 +3,8 @@ package com.example.freeman.asktome.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,6 +28,7 @@ public class MinhaPalestraActivity extends AppCompatActivity {
     private Usuario usuario;
     private List<Palestra> palestras;
     private static int ENTRAR = 1;
+    private static int SAIR = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +75,27 @@ public class MinhaPalestraActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_minha_palestra_sair:
+                intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                startActivityForResult(intent, SAIR);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.minha_palestra,menu);
+        return true;
     }
 }

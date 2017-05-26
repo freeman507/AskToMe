@@ -9,12 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.freeman.asktome.InfoPalestraActivity;
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Pergunta;
 import com.example.freeman.asktome.model.Usuario;
-import com.example.freeman.asktome.view.PalestraListAdapter;
 import com.example.freeman.asktome.view.PerguntaListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
