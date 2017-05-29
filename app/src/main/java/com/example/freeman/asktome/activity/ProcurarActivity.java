@@ -34,11 +34,15 @@ public class ProcurarActivity extends AppCompatActivity {
     private static final int ENTRAR = 2;
     private Palestra palestra;
     private List<Palestra> palestras;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_procurar);
+
+        database = FirebaseDatabase.getInstance().getReference("palestra");
+        database.keepSynced(true);
 
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         this.palestra = (Palestra) getIntent().getSerializableExtra("palestra");
@@ -64,7 +68,7 @@ public class ProcurarActivity extends AppCompatActivity {
     }
 
     private void getPalestras(final String codigo, final String titulo, final String palestrante) {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("palestra");
+
         database.orderByChild("codigo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -33,12 +33,16 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
     private ListView listView;
     private static int INFO = 1;
     private static int SAIR = 2;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stream_pergunta_usuario);
+
+        database = FirebaseDatabase.getInstance().getReference("pergunta");
+        database.keepSynced(true);
 
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         this.palestra = (Palestra) getIntent().getSerializableExtra("palestra");
@@ -64,7 +68,7 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
     }
 
     private void getPerguntas() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("pergunta");
+
         database.orderByChild("codigoPalestra").equalTo(this.palestra.getCodigo()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,6 +90,15 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()) {
+            case R.id.action_atualizar_palestra:
+                getPerguntas();
+                return true;
+            case R.id.action_menu_palestra:
+                intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                intent.putExtra("palestra", this.palestra);
+                startActivityForResult(intent, SAIR);
+                return true;
             case R.id.action_info_palestra:
                 intent = new Intent(this, InfoPalestraActivity.class);
                 intent.putExtra("usuario", this.usuario);

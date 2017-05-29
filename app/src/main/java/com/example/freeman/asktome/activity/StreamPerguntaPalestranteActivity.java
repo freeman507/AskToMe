@@ -31,18 +31,22 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
     private List<Pergunta> perguntas;
     private static int EDITAR = 1;
     private static int SAIR = 0;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stream_pergunta_palestrante);
 
+        database = FirebaseDatabase.getInstance().getReference("pergunta");
+        database.keepSynced(true);
+
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         this.palestra = (Palestra) getIntent().getSerializableExtra("palestra");
 
         this.listView = (ListView) findViewById(R.id.lista_pergunta_palestrante);
 
-        getPerguntas();
+
     }
 
     private void atualizaLista(List<Pergunta> perguntas) {
@@ -50,7 +54,7 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
     }
 
     private void getPerguntas() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("pergunta");
+
         database.orderByChild("codigoPalestra").equalTo(this.palestra.getCodigo()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,6 +76,15 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()) {
+            case R.id.action_palestra_atualizar:
+                getPerguntas();
+                return true;
+            case R.id.action_palestra_menu:
+                intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                intent.putExtra("palestra", this.palestra);
+                startActivityForResult(intent, EDITAR);
+                return true;
             case R.id.action_palestra_editar:
                 intent = new Intent(this, NovaPalestraActivity.class);
                 intent.putExtra("usuario", this.usuario);

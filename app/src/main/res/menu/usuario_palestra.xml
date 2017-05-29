@@ -3,10 +3,22 @@
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
+        android:id="@+id/action_atualizar_palestra"
+        android:icon="@drawable/ic_palestra_atualizar"
+        android:title="Atualizar"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_info_palestra"
         android:icon="@drawable/ic_info_color_accent"
         android:title="Informação"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/action_menu_palestra"
+        android:icon="@drawable/ic_sair_accent"
+        android:title="Voltar para o Menu"
+        app:showAsAction="collapseActionView"/>
 
     <item
         android:id="@+id/action_sair"

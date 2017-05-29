@@ -35,6 +35,7 @@
         android:gravity="center">
 
         <EditText
+            android:text="freeman.zanella@gmail.com"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -55,6 +56,7 @@
         android:gravity="center">
 
         <EditText
+            android:text="123456"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -99,8 +101,7 @@
             android:layout_margin="5dp"
             android:textSize="24sp"
             android:textColor="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:onClick="cadastrar"/>
+            android:clickable="true"/>
 
         <TextView
             android:text="Esqueseu a senha?"

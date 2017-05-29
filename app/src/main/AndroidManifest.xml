@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".activity.CadastroActivity"
-            android:label="Minha Conta" />
+            android:label="Minha Conta"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activity.MenuActivity"
             android:label="Menu" />
