@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.freeman.asktome.R;
+import com.example.freeman.asktome.dao.PalestraDAO;
+import com.example.freeman.asktome.dao.PerguntaDAO;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Pergunta;
 import com.example.freeman.asktome.model.Usuario;
@@ -21,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,12 +44,15 @@ public class NovaPalestraActivity extends AppCompatActivity {
     private Palestra palestra;
     private String acao;
     private String codigoPalestra;
+    private PalestraDAO dao = PalestraDAO.getInstance();
+    private PerguntaDAO perguntaDAO = PerguntaDAO.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_palestra);
+
 
         database = FirebaseDatabase.getInstance().getReference("palestra");
 
@@ -132,118 +138,18 @@ public class NovaPalestraActivity extends AppCompatActivity {
         });
     }
 
-    private void salvar(final Palestra p) {
-        String codigo = acao.equals("nova") ? p.getCodigo() : this.codigoPalestra;
-        database.orderByChild("codigo").equalTo(codigo.toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if(acao.equals("nova")) {
-                    boolean existe = false;
-                    if (dataSnapshot.exists()) {
-                        existe = true;
-                    }
-                    if (!existe) {
-                        cadastrar(p);
-                    } else {
-                        Toast.makeText(NovaPalestraActivity.this, "Código já cadastrado", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    editar(p, dataSnapshot);
-                }
+    private void salvar(Palestra palestra) {
+        if(this.acao.equals("nova")) {
+            dao.salvar(palestra);
+        } else {
+            dao.editar(palestra);
+            if(!this.codigoPalestra.equals(palestra.getCodigo())) {
+                perguntaDAO.atualizaCodigoPalestra(palestra.getCodigo());
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void editar(Palestra p, DataSnapshot dataSnapshot) {
-        if(!p.getCodigo().equals(this.codigoPalestra)) {
-            atualizaPerguntas(p.getCodigo());
         }
-        for(DataSnapshot data : dataSnapshot.getChildren()) {
-            String key = data.getKey();
-            Map<String, Object> map = new HashMap<>();
-            map.put(key, p);
-            database.updateChildren(map);
-        }
-        Intent intent = new Intent(NovaPalestraActivity.this, StreamPerguntaPalestranteActivity.class);
-        intent.putExtra("usuario", usuario);
-        intent.putExtra("palestra", p);
-        startActivity(intent);
-    }
-
-    private void atualizaPerguntas(final String codigo) {
-        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("pergunta");
-        db.orderByChild("codigoPalestra").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()) {
-                    String key = data.getKey();
-                    Pergunta value = data.getValue(Pergunta.class);
-                    value.setCodigoPalestra(codigo);
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put(key, value);
-                    db.updateChildren(map);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void cadastrar(Palestra palestra) {
-        String userId = database.push().getKey();
-        database.child(userId).setValue(palestra);
         Intent intent = new Intent(NovaPalestraActivity.this, MenuActivity.class);
-        intent.putExtra("usuario", usuario);
+        intent.putExtra("usuario", this.usuario);
+        intent.putExtra("palestra", palestra);
         startActivity(intent);
-    }
-
-    private String getStringTime(Date time) {
-        int hours = time.getHours();
-        int minutes = time.getMinutes();
-        String hora = "";
-
-        if(hours < 10) {
-            hora += "0"+hours;
-        } else {
-            hora += hours;
-        }
-        hora += ":";
-        if( minutes < 10) {
-            hora += "0"+minutes+"/";
-        } else {
-            hora += minutes;
-        }
-        return hora;
-    }
-
-    private String getStringDate(Date date) {
-
-        int year = date.getYear();
-        int month = date.getMonth();
-        int day = date.getDay();
-        String data = "";
-
-        if(day < 10) {
-            data += "0"+day;
-        } else {
-            data += day;
-        }
-        data += "/";
-        if( month < 10) {
-            data += "0"+month+"/";
-        } else {
-            data += month;
-        }
-        data += "/";
-        return data + year;
     }
 }
