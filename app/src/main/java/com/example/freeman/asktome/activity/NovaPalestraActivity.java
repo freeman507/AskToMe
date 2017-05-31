@@ -1,5 +1,7 @@
 package com.example.freeman.asktome.activity;
 
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.dao.PalestraDAO;
 import com.example.freeman.asktome.dao.PerguntaDAO;
+import com.example.freeman.asktome.fragment.TimePickerFragment;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Pergunta;
 import com.example.freeman.asktome.model.Usuario;
@@ -43,7 +46,7 @@ public class NovaPalestraActivity extends AppCompatActivity {
     private Usuario usuario;
     private Palestra palestra;
     private String acao;
-    private String codigoPalestra;
+    private String codigoAntigo;
     private PalestraDAO dao = PalestraDAO.getInstance();
     private PerguntaDAO perguntaDAO = PerguntaDAO.getInstance();
 
@@ -70,6 +73,8 @@ public class NovaPalestraActivity extends AppCompatActivity {
         campoDescricao = (EditText) findViewById(R.id.descricao_palestra);
         cadastrarButton = (Button) findViewById(R.id.cadastrar_palestra_btn);
 
+        
+
         this.acao = "nova";
         if(palestra != null) {
             campoCodigo.setText(palestra.getCodigo());
@@ -81,7 +86,7 @@ public class NovaPalestraActivity extends AppCompatActivity {
             campoDuracao.setText(palestra.getDuracao());
             cadastrarButton.setText("EDITAR");
             this.acao = "editar";
-            this.codigoPalestra = palestra.getCodigo();
+            this.codigoAntigo = palestra.getCodigo();
         }
 
         cadastrarButton.setOnClickListener(new View.OnClickListener() {
@@ -132,24 +137,112 @@ public class NovaPalestraActivity extends AppCompatActivity {
                     palestra.setData(data);
                     palestra.setDuracao(duracao);
                     palestra.setHora(hora);
-                    salvar(palestra);
+                    if(acao.equals("nova")) {
+                        salvar(palestra);
+                    } else {
+                        editar(palestra);
+                    }
                 }
             }
         });
     }
 
-    private void salvar(Palestra palestra) {
-        if(this.acao.equals("nova")) {
-            dao.salvar(palestra);
-        } else {
-            dao.editar(palestra);
-            if(!this.codigoPalestra.equals(palestra.getCodigo())) {
-                perguntaDAO.atualizaCodigoPalestra(palestra.getCodigo());
+    public void salvar(final Palestra palestra) {
+        this.database.orderByChild("codigo").equalTo(palestra.getCodigo()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    String userId = database.push().getKey();
+                    database.child(userId).setValue(palestra);
+                    voltarParaMenu();
+                } else {
+                    Toast.makeText(NovaPalestraActivity.this, "Codigo da palestra já está em uso", Toast.LENGTH_SHORT).show();
+                }
             }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void editar(final Palestra palestra) {
+        if (codigoAntigo.equals(palestra.getCodigo())) {
+            String codigo = palestra.getCodigo();
+            this.database.orderByChild("codigo").equalTo(codigo).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        String key = data.getKey();
+                        Map<String, Object> map = new HashMap<>();
+                        map.put(key, palestra);
+                        database.updateChildren(map);
+                        break;
+                    }
+                    voltarParaMenu();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } else {
+            this.database.orderByChild("codigo").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Palestra value = data.getValue(Palestra.class);
+                        if(value.getCodigo().equals(palestra.getCodigo())) {
+                            Toast.makeText(NovaPalestraActivity.this, "Codigo da palestra já está em uso", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    for(DataSnapshot data : dataSnapshot.getChildren()) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put(data.getKey(), palestra);
+                        database.updateChildren(map);
+                        atualizaCodigoPalestra(palestra.getCodigo());
+                        break;
+                    }
+                    voltarParaMenu();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
+    }
+
+    public void atualizaCodigoPalestra(final String codigoPalestra) {
+        final DatabaseReference databasePergunta = perguntaDAO.getDatabase();
+        databasePergunta.orderByChild("codigoPalestra").equalTo(this.codigoAntigo).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Pergunta pergunta = data.getValue(Pergunta.class);
+                    pergunta.setCodigoPalestra(codigoPalestra);
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(data.getKey(), pergunta);
+                    databasePergunta.updateChildren(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void voltarParaMenu() {
         Intent intent = new Intent(NovaPalestraActivity.this, MenuActivity.class);
         intent.putExtra("usuario", this.usuario);
-        intent.putExtra("palestra", palestra);
+        intent.putExtra("palestra", this.palestra);
         startActivity(intent);
     }
 }

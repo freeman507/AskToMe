@@ -1,9 +1,5 @@
 package com.example.freeman.asktome.dao;
 
-import android.content.Intent;
-
-import com.example.freeman.asktome.activity.NovaPalestraActivity;
-import com.example.freeman.asktome.activity.StreamPerguntaPalestranteActivity;
 import com.example.freeman.asktome.model.Palestra;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,25 +50,6 @@ public class PalestraDAO {
         return instance;
     }
 
-    public List<Palestra> getAll() {
-        this.palestras = new ArrayList<>();
-        this.database.orderByChild("codigo").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
-                    Palestra palestra = dataSnapshotPalestra.getValue(Palestra.class);
-                    palestras.add(palestra);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return this.palestras;
-    }
-
     public List<Palestra> search(final String codigo, final String titulo, final String palestrante) {
         this.palestras = new ArrayList<>();
 
@@ -98,47 +75,5 @@ public class PalestraDAO {
             }
         });
         return this.palestras;
-    }
-
-    public void cadastrar(Palestra palestra) {
-        String userId = this.database.push().getKey();
-        this.database.child(userId).setValue(palestra);
-    }
-
-    public void editar(final Palestra palestra) {
-        String codigo = palestra.getCodigo();
-        this.database.orderByChild(codigo).equalTo(codigo).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()) {
-                    String key = data.getKey();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put(key, palestra);
-                    database.updateChildren(map);
-                    break;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void salvar(final Palestra palestra) {
-        this.database.orderByChild("codigo").equalTo(palestra.getCodigo()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
-                    cadastrar(palestra);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }

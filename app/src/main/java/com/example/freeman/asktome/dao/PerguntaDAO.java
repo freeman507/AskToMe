@@ -38,25 +38,4 @@ public class PerguntaDAO {
         }
         return instance;
     }
-
-    public void atualizaCodigoPalestra(final String codigo) {
-        this.database.orderByChild("codigoPalestra").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()) {
-                    String key = data.getKey();
-                    Pergunta value = data.getValue(Pergunta.class);
-                    value.setCodigoPalestra(codigo);
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put(key, value);
-                    database.updateChildren(map);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }
