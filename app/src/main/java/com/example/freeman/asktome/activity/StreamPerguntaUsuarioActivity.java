@@ -35,6 +35,11 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
     private static int SAIR = 2;
     private DatabaseReference database;
 
+    public StreamPerguntaUsuarioActivity() {
+
+        this.perguntas = new ArrayList<>();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -69,10 +74,10 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
 
     private void getPerguntas() {
 
-        database.orderByChild("codigoPalestra").equalTo(this.palestra.getCodigo()).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.orderByChild("codigoPalestra").equalTo(this.palestra.getCodigo()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                perguntas = new ArrayList<Pergunta>();
+
                 for (DataSnapshot dataSnapshotPalestra : dataSnapshot.getChildren()) {
                     perguntas.add(dataSnapshotPalestra.getValue(Pergunta.class));
                 }

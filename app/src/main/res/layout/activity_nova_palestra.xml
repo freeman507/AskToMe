@@ -50,7 +50,8 @@
             android:hint="Data dd/mm/aaaa"
             android:layout_weight="1"
             android:theme="@style/Theme.App.Base"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:focusable="false"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -61,7 +62,8 @@
             android:hint="Hora hh:mm"
             android:layout_weight="1"
             android:theme="@style/Theme.App.Base"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:focusable="false"/>
 
     </LinearLayout>
 
@@ -74,7 +76,8 @@
         android:hint="Duração hh:mm"
         android:layout_weight="1"
         android:theme="@style/Theme.App.Base"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:focusable="false"/>
 
     <EditText
         android:layout_width="match_parent"
