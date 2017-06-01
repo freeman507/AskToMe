@@ -1,19 +1,26 @@
 package com.example.freeman.asktome.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.freeman.asktome.R;
 import com.example.freeman.asktome.dao.PalestraDAO;
 import com.example.freeman.asktome.dao.PerguntaDAO;
-import com.example.freeman.asktome.fragment.TimePickerFragment;
 import com.example.freeman.asktome.model.Palestra;
 import com.example.freeman.asktome.model.Pergunta;
 import com.example.freeman.asktome.model.Usuario;
@@ -24,13 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class NovaPalestraActivity extends AppCompatActivity {
+public class NovaPalestraActivity extends AppCompatActivity implements Button.OnClickListener {
 
     private EditText campoCodigo;
     private EditText campoTitulo;
@@ -49,6 +57,11 @@ public class NovaPalestraActivity extends AppCompatActivity {
     private String codigoAntigo;
     private PalestraDAO dao = PalestraDAO.getInstance();
     private PerguntaDAO perguntaDAO = PerguntaDAO.getInstance();
+    private FragmentManager fragmentManager = getFragmentManager();
+
+    static final int DATE_DIALOG_ID = 0;
+    static final int TIME_DIALOG_ID = 1;
+    static final int DURING_DIALOG_ID = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +86,7 @@ public class NovaPalestraActivity extends AppCompatActivity {
         campoDescricao = (EditText) findViewById(R.id.descricao_palestra);
         cadastrarButton = (Button) findViewById(R.id.cadastrar_palestra_btn);
 
-        
+        campoData.setOnClickListener(this);
 
         this.acao = "nova";
         if(palestra != null) {
@@ -245,4 +258,62 @@ public class NovaPalestraActivity extends AppCompatActivity {
         intent.putExtra("palestra", this.palestra);
         startActivity(intent);
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v == campoData)
+            showDialog(DATE_DIALOG_ID);
+        if (v == campoHora)
+            showDialog(TIME_DIALOG_ID);
+        if (v == campoDuracao)
+            showDialog(DURING_DIALOG_ID);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Calendar calendario = Calendar.getInstance();
+
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        int hora = calendario.get(Calendar.HOUR_OF_DAY);
+        int minuto = calendario.get(Calendar.MINUTE);
+
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+            case TIME_DIALOG_ID:
+                return new TimePickerDialog(this, mTimeSetListener, hora, minuto, true);
+            case DURING_DIALOG_ID:
+                return new TimePickerDialog(this, mDuringSetListener, hora, minuto, true);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            String data = String.valueOf(dayOfMonth) + " /" + String.valueOf(monthOfYear+1) + " /" + String.valueOf(year);
+            campoData.setText(data);
+        }
+    };
+
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            String time = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+            campoHora.setText(time);
+        }
+    };
+
+    private TimePickerDialog.OnTimeSetListener mDuringSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            String time = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+            campoDuracao.setText(time);
+        }
+    };
+
 }
