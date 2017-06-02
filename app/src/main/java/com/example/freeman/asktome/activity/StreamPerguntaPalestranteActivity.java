@@ -55,7 +55,7 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
 
     private void getPerguntas() {
 
-        database.orderByChild("codigoPalestra").equalTo(this.palestra.getCodigo()).addListenerForSingleValueEvent(new ValueEventListener() {
+        database.orderByChild("codigoPalestra").equalTo(this.palestra.getCodigo()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 perguntas = new ArrayList<Pergunta>();
