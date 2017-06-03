@@ -46,7 +46,7 @@ public class StreamPerguntaPalestranteActivity extends AppCompatActivity {
 
         this.listView = (ListView) findViewById(R.id.lista_pergunta_palestrante);
 
-
+        getPerguntas();
     }
 
     private void atualizaLista(List<Pergunta> perguntas) {

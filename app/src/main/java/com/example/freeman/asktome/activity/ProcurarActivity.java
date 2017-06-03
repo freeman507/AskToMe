@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.freeman.asktome.R;
@@ -72,9 +73,11 @@ public class ProcurarActivity extends AppCompatActivity {
     private void atualizaLista(List<Palestra> palestras) {
         this.palestras = palestras;
         this.listView.setAdapter(new ProcurarListAdater(this, this.palestras));
+        TextView erroMsg = (TextView) findViewById(R.id.erro_msg);
         if(this.palestras != null && !this.palestras.isEmpty()) {
-            LinearLayout msg = (LinearLayout) findViewById(R.id.procurar_msg);
-            msg.removeAllViews();
+            erroMsg.setText("");
+        } else {
+            erroMsg.setText("Nenhuma palestra encontrada");
         }
     }
 
