@@ -14,17 +14,6 @@
     android:theme="@style/AppTheme"
     android:background="@color/colorAccent">
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/codigo_palestra"
-        android:layout_weight="1"
-        android:hint="Código da Palestra"
-        android:theme="@style/Theme.App.Base"/>
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,6 +86,16 @@
         android:id="@+id/descricao_palestra"
         android:hint="Descrição"
         android:layout_weight="1"
+        android:theme="@style/Theme.App.Base"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/codigo_palestra"
+        android:layout_weight="1"
+        android:hint="Identificador da palestra"
         android:theme="@style/Theme.App.Base"/>
 
     <Button

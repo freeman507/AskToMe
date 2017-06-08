@@ -23,7 +23,7 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:theme="@style/Theme.App.Base"
-        android:hint="Codigo da Palestra" />
+        android:hint="Identificador da Palestra" />
 
     <EditText
         android:layout_width="match_parent"

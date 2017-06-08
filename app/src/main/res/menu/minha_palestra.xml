@@ -6,4 +6,10 @@
         android:icon="@drawable/ic_sair_accent"
         android:title="Sair"
         app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/action_minha_palestra_nova"
+        android:icon="@drawable/ic_action_add"
+        android:title="Nova Palestra"
+        app:showAsAction="ifRoom"/>
 </menu>

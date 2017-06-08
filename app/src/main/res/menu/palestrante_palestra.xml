@@ -12,7 +12,7 @@
         android:id="@+id/action_palestra_editar"
         android:icon="@drawable/ic_editar_accent"
         android:title="Editar"
-        app:showAsAction="collapseActionView"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_palestra_menu"

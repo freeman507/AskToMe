@@ -30,7 +30,6 @@ public class MenuActivity extends AppCompatActivity {
         layoutPalestrante = (LinearLayout) findViewById(R.id.layout_palestrante);
         perfilButton = (ImageButton) findViewById(R.id.perfil_btn);
         procurarButton = (ImageButton) findViewById(R.id.procurar_btn);
-        novaPalestraButton = (ImageButton) findViewById(R.id.nova_palestra_btn);
         minhasPalestrasButton = (ImageButton) findViewById(R.id.minhas_palestras_btn);
 
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
@@ -43,15 +42,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MenuActivity.this, CadastroActivity.class);
-                intent.putExtra("usuario", MenuActivity.this.usuario);
-                startActivity(intent);
-            }
-        });
-
-        novaPalestraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, NovaPalestraActivity.class);
                 intent.putExtra("usuario", MenuActivity.this.usuario);
                 startActivity(intent);
             }

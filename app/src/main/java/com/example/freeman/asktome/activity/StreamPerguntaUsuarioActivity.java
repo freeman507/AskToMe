@@ -36,7 +36,6 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
     private DatabaseReference database;
 
     public StreamPerguntaUsuarioActivity() {
-
         this.perguntas = new ArrayList<>();
     }
 

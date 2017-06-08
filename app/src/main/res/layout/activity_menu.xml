@@ -88,37 +88,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
+        android:weightSum="2"
         android:layout_margin="5dp"
         android:id="@+id/layout_palestrante">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_prancheta_preta"
-                android:id="@+id/nova_palestra_btn"
-                android:layout_weight="10"
-                android:layout_margin="5dp"
-                android:scaleType="fitCenter"
-                android:background="@color/colorSecundary"
-                android:padding="10dp" />
-
-            <TextView
-                android:text="Nova Palestra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/TextView3"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="normal|bold" />
-        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -138,7 +110,7 @@
                 android:padding="10dp" />
 
             <TextView
-                android:text="Minhas Palestras"
+                android:text="Administrar Palestras"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/TextView4"
@@ -147,6 +119,13 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
         </LinearLayout>
 
     </LinearLayout>

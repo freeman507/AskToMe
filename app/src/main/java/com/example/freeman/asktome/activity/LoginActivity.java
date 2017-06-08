@@ -1,7 +1,9 @@
 package com.example.freeman.asktome.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -57,35 +59,54 @@ public class LoginActivity extends Activity {
                 String email = loginEditTxt.getText().toString();
                 final String senha = passwordEditTxt.getText().toString();
 
-                database.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                if(verificaConexao()) {
+                    database.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Usuario usuario = null;
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot dataSnapshotUsuario : dataSnapshot.getChildren()) {
-                                usuario = dataSnapshotUsuario.getValue(Usuario.class);
-                                break;
+                            Usuario usuario = null;
+                            if (dataSnapshot.exists()) {
+                                for (DataSnapshot dataSnapshotUsuario : dataSnapshot.getChildren()) {
+                                    usuario = dataSnapshotUsuario.getValue(Usuario.class);
+                                    break;
+                                }
                             }
+
+                            if (usuario != null && usuario.getSenha().equals(senha)) {
+                                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                                intent.putExtra("usuario", usuario);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Usuario ou senha inválidos", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
 
-                        if (usuario != null && usuario.getSenha().equals(senha)) {
-                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                            intent.putExtra("usuario", usuario);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Usuario ou senha inválidos", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Sem acesso a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    /* Função para verificar existência de conexão com a internet
+	 */
+    public  boolean verificaConexao() {
+        boolean conectado;
+        ConnectivityManager conectivtyManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conectivtyManager.getActiveNetworkInfo() != null
+                && conectivtyManager.getActiveNetworkInfo().isAvailable()
+                && conectivtyManager.getActiveNetworkInfo().isConnected()) {
+            conectado = true;
+        } else {
+            conectado = false;
+        }
+        return conectado;
     }
 
     @Override

@@ -86,6 +86,11 @@ public class MinhaPalestraActivity extends AppCompatActivity {
                 intent.putExtra("usuario", this.usuario);
                 startActivityForResult(intent, SAIR);
                 return true;
+            case R.id.action_minha_palestra_nova:
+                intent = new Intent(this, NovaPalestraActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                startActivityForResult(intent, SAIR);
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

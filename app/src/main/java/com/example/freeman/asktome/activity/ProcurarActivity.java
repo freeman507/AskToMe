@@ -30,6 +30,7 @@ public class ProcurarActivity extends AppCompatActivity {
 
     private ListView listView;
     private List<Usuario> usuarios;
+    private TextView erroMsg;
     private Usuario usuario;
     private static final int VOLTAR = 0;
     private static final int FILTRAR = 1;
@@ -39,6 +40,10 @@ public class ProcurarActivity extends AppCompatActivity {
     private DatabaseReference database;
     private PalestraDAO dao = PalestraDAO.getInstance();
 
+    public ProcurarActivity() {
+        this.palestras = new ArrayList<>();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,7 @@ public class ProcurarActivity extends AppCompatActivity {
 
         database = dao.getDatabase();
         database.keepSynced(true);
+
 
         this.usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         this.palestra = (Palestra) getIntent().getSerializableExtra("palestra");
@@ -61,10 +67,17 @@ public class ProcurarActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Palestra palestra = palestras.get(position);
-                Intent intent = new Intent(ProcurarActivity.this, StreamPerguntaUsuarioActivity.class);
-                intent.putExtra("palestra", palestra);
-                intent.putExtra("usuario", usuario);
-                startActivityForResult(intent, ENTRAR);
+                if(palestra.getEmailPalestrante().equals(usuario.getEmail())){
+                    Intent intent = new Intent(ProcurarActivity.this, StreamPerguntaPalestranteActivity.class);
+                    intent.putExtra("palestra", palestra);
+                    intent.putExtra("usuario", usuario);
+                    startActivityForResult(intent, ENTRAR);
+                } else {
+                    Intent intent = new Intent(ProcurarActivity.this, StreamPerguntaUsuarioActivity.class);
+                    intent.putExtra("palestra", palestra);
+                    intent.putExtra("usuario", usuario);
+                    startActivityForResult(intent, ENTRAR);
+                }
             }
         });
 
@@ -73,12 +86,6 @@ public class ProcurarActivity extends AppCompatActivity {
     private void atualizaLista(List<Palestra> palestras) {
         this.palestras = palestras;
         this.listView.setAdapter(new ProcurarListAdater(this, this.palestras));
-        TextView erroMsg = (TextView) findViewById(R.id.erro_msg);
-        if(this.palestras != null && !this.palestras.isEmpty()) {
-            erroMsg.setText("");
-        } else {
-            erroMsg.setText("Nenhuma palestra encontrada");
-        }
     }
 
     @Override
