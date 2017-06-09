@@ -1,13 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- "Mark Favorite", should appear as action button if possible -->
-    <item
-        android:id="@+id/action_palestra_atualizar"
-        android:icon="@drawable/ic_palestra_atualizar"
-        android:title="Atualizar"
-        app:showAsAction="ifRoom"/>
-
     <item
         android:id="@+id/action_palestra_editar"
         android:icon="@drawable/ic_editar_accent"
@@ -24,5 +17,10 @@
         android:id="@+id/action_palestrante_sair"
         android:icon="@drawable/ic_sair_accent"
         android:title="Sair"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/action_palestrante_logout"
+        android:icon="@drawable/ic_sair_accent"
+        android:title="Logout"
         app:showAsAction="collapseActionView"/>
 </menu>

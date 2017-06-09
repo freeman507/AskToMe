@@ -43,7 +43,8 @@
             android:layout_weight="1"
             android:hint="E-Mail"
             android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:theme="@style/Theme.App.Base"/>
 
     </LinearLayout>
 
@@ -63,7 +64,8 @@
             android:layout_weight="1"
             android:hint="Senha"
             android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:theme="@style/Theme.App.Base"/>
     </LinearLayout>
 
     <LinearLayout

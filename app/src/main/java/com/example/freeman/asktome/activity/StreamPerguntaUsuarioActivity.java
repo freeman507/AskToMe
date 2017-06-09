@@ -94,9 +94,6 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()) {
-            case R.id.action_atualizar_palestra:
-                getPerguntas();
-                return true;
             case R.id.action_menu_palestra:
                 intent = new Intent(this, MenuActivity.class);
                 intent.putExtra("usuario", this.usuario);
@@ -110,9 +107,7 @@ public class StreamPerguntaUsuarioActivity extends AppCompatActivity {
                 startActivityForResult(intent, INFO);
                 return true;
             case R.id.action_sair:
-                intent = new Intent(this, ProcurarActivity.class);
-                intent.putExtra("usuario", this.usuario);
-                intent.putExtra("palestra", this.palestra);
+                intent = new Intent(this, LoginActivity.class);
                 startActivityForResult(intent, SAIR);
                 return true;
             default:

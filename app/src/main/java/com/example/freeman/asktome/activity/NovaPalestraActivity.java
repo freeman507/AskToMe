@@ -115,7 +115,7 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
                 boolean cadastrar = true;
 
                 if(codigo.isEmpty()) {
-                    Toast.makeText(NovaPalestraActivity.this, "Campo codigo está vazio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NovaPalestraActivity.this, "Campo apelido da palestra está vazio", Toast.LENGTH_SHORT).show();
                     cadastrar = false;
                 }
                 if(titulo.isEmpty()) {
@@ -141,7 +141,7 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
 
                 if(cadastrar) {
                     Palestra palestra = new Palestra();
-                    palestra.setNomePalestrante(usuario.getNome() + " " + usuario.getSobrenome());
+                    palestra.setNomePalestrante(usuario.getNome());
                     palestra.setEmailPalestrante(usuario.getEmail());
                     palestra.setCodigo(codigo);
                     palestra.setTitulo(titulo);
@@ -167,7 +167,10 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
                 if (!dataSnapshot.exists()) {
                     String userId = database.push().getKey();
                     database.child(userId).setValue(palestra);
-                    voltarParaMenu();
+                    Intent intent = new Intent(NovaPalestraActivity.this, StreamPerguntaPalestranteActivity.class);
+                    intent.putExtra("usuario", usuario);
+                    intent.putExtra("palestra", palestra);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(NovaPalestraActivity.this, "Codigo da palestra já está em uso", Toast.LENGTH_SHORT).show();
                 }
@@ -194,7 +197,10 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
                         database.updateChildren(map);
                         break;
                     }
-                    voltarParaMenu();
+                    Intent intent = new Intent(NovaPalestraActivity.this, StreamPerguntaPalestranteActivity.class);
+                    intent.putExtra("usuario", usuario);
+                    intent.putExtra("palestra", palestra);
+                    startActivity(intent);
                 }
 
                 @Override
@@ -209,7 +215,7 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
                         Palestra value = data.getValue(Palestra.class);
                         if(value.getCodigo().equals(palestra.getCodigo())) {
-                            Toast.makeText(NovaPalestraActivity.this, "Codigo da palestra já está em uso", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NovaPalestraActivity.this, "Apelido da palestra já está em uso", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
@@ -220,7 +226,10 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
                         atualizaCodigoPalestra(palestra.getCodigo());
                         break;
                     }
-                    voltarParaMenu();
+                    Intent intent = new Intent(NovaPalestraActivity.this, StreamPerguntaPalestranteActivity.class);
+                    intent.putExtra("usuario", usuario);
+                    intent.putExtra("palestra", palestra);
+                    startActivity(intent);
                 }
 
                 @Override
@@ -286,7 +295,7 @@ public class NovaPalestraActivity extends AppCompatActivity implements Button.On
             case TIME_DIALOG_ID:
                 return new TimePickerDialog(this, mTimeSetListener, hora, minuto, true);
             case DURING_DIALOG_ID:
-                return new TimePickerDialog(this, mDuringSetListener, hora, minuto, true);
+                return new TimePickerDialog(this, mDuringSetListener, 0, 0, true);
         }
         return null;
     }

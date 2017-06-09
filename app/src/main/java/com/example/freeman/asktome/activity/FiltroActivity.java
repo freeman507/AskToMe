@@ -3,6 +3,8 @@ package com.example.freeman.asktome.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,5 +47,31 @@ public class FiltroActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_voltar:
+                intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("usuario", this.usuario);
+                startActivityForResult(intent, 0);
+                return true;
+            case R.id.action_logout:
+                intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, 0);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.procurar,menu);
+        return true;
     }
 }

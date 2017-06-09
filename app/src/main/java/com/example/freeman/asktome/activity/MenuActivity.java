@@ -59,7 +59,7 @@ public class MenuActivity extends AppCompatActivity {
         procurarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ProcurarActivity.class);
+                Intent intent = new Intent(MenuActivity.this, FiltroActivity.class);
                 intent.putExtra("usuario", MenuActivity.this.usuario);
                 startActivity(intent);
             }

@@ -86,6 +86,10 @@ public class MinhaPalestraActivity extends AppCompatActivity {
                 intent.putExtra("usuario", this.usuario);
                 startActivityForResult(intent, SAIR);
                 return true;
+            case R.id.action_minha_palestra_logout:
+                intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, SAIR);
+                return true;
             case R.id.action_minha_palestra_nova:
                 intent = new Intent(this, NovaPalestraActivity.class);
                 intent.putExtra("usuario", this.usuario);

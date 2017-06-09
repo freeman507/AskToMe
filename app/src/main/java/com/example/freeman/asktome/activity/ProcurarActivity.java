@@ -102,6 +102,10 @@ public class ProcurarActivity extends AppCompatActivity {
                 intent.putExtra("usuario", this.usuario);
                 startActivityForResult(intent, VOLTAR);
                 return true;
+            case R.id.action_logout:
+                intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, 0);
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

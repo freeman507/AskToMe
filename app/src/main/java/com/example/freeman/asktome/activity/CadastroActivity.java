@@ -26,10 +26,9 @@ import java.util.regex.Pattern;
 public class CadastroActivity extends AppCompatActivity {
 
     private EditText campoNome;
-    private EditText campoSobrenome;
-    private EditText campoTelefone;
     private EditText campoEmail;
     private EditText campoSenha;
+    private EditText campoSenhaConfirmar;
     private Switch campoPalestrante;
     private Button button;
     private Usuario usuario;
@@ -47,10 +46,9 @@ public class CadastroActivity extends AppCompatActivity {
         database.keepSynced(true);
 
         campoNome = (EditText) findViewById(R.id.campo_nome);
-        campoSobrenome = (EditText) findViewById(R.id.campo_sobrenome);
-        campoTelefone = (EditText) findViewById(R.id.campo_telefone);
         campoEmail = (EditText) findViewById(R.id.campo_email);
         campoSenha = (EditText) findViewById(R.id.campo_senha);
+        campoSenhaConfirmar = (EditText) findViewById(R.id.campo_repetir_senha);
         campoPalestrante = (Switch) findViewById(R.id.campo_palestrante);
         button = (Button) findViewById(R.id.cadastrar_btn);
 
@@ -59,8 +57,6 @@ public class CadastroActivity extends AppCompatActivity {
             this.acao = "editar";
             button.setText("Alterar");
             campoNome.setText(usuario.getNome());
-            campoSobrenome.setText(usuario.getSobrenome());
-            campoTelefone.setText(usuario.getTelefone());
             campoEmail.setText(usuario.getEmail());
             campoEmail.setEnabled(false);
             campoEmail.setTextColor(getResources().getColor(R.color.colorSecundary));
@@ -79,21 +75,12 @@ public class CadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String nome = campoNome.getText().toString();
-                String sobrenome = campoSobrenome.getText().toString();
-                String telefone = campoTelefone.getText().toString();
                 String email = campoEmail.getText().toString();
                 String senha = campoSenha.getText().toString();
+                String repetirSenha = campoSenhaConfirmar.getText().toString();
                 boolean cadastrar = true;
                 if(nome.isEmpty()) {
                     Toast.makeText(CadastroActivity.this, "Campo nome está vazio", Toast.LENGTH_SHORT).show();
-                    cadastrar = false;
-                }
-                if(sobrenome.isEmpty()) {
-                    Toast.makeText(CadastroActivity.this, "Campo sobrenome está vazio", Toast.LENGTH_SHORT).show();
-                    cadastrar = false;
-                }
-                if(telefone.isEmpty()) {
-                    Toast.makeText(CadastroActivity.this, "Campo telefone está vazio", Toast.LENGTH_SHORT).show();
                     cadastrar = false;
                 }
                 Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
@@ -106,11 +93,13 @@ public class CadastroActivity extends AppCompatActivity {
                     Toast.makeText(CadastroActivity.this, "A senha deve ter pelo menos 6 digitos", Toast.LENGTH_SHORT).show();
                     cadastrar = false;
                 }
+                if(repetirSenha.isEmpty() || repetirSenha.length() < 6 || !repetirSenha.equals(senha)) {
+                    Toast.makeText(CadastroActivity.this, "Confirmar senha está errado", Toast.LENGTH_SHORT).show();
+                    cadastrar = false;
+                }
                 if(cadastrar) {
                     Usuario usuario = new Usuario();
                     usuario.setNome(nome);
-                    usuario.setSobrenome(sobrenome);
-                    usuario.setTelefone(telefone);
                     usuario.setEmail(email);
                     usuario.setSenha(senha);
                     boolean palestrante = campoPalestrante.isChecked();
@@ -140,7 +129,7 @@ public class CadastroActivity extends AppCompatActivity {
                 if(!existe) {
                     String userId = database.push().getKey();
                     database.child(userId).setValue(usuario);
-                    Intent intent = new Intent(CadastroActivity.this, MenuActivity.class);
+                    Intent intent = new Intent(CadastroActivity.this, usuario.isPalestrante() ? MinhaPalestraActivity.class : FiltroActivity.class);
                     intent.putExtra("usuario", usuario);
                     startActivity(intent);
                 } else {
@@ -156,8 +145,14 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     private void editar(DataSnapshot dataSnapshot, Usuario usuario) {
-        Map<String, Object> update = new HashMap<String, Object>();
-        update.put(dataSnapshot.getKey(), usuario);
-        this.database.updateChildren(update);
+        for(DataSnapshot data : dataSnapshot.getChildren()) {
+            Usuario value = data.getValue(Usuario.class);
+            if(usuario.getEmail().equals(value.getEmail())) {
+                Map<String, Object> update = new HashMap<String, Object>();
+                update.put(data.getKey(), usuario);
+                this.database.updateChildren(update);
+                break;
+            }
+        }
     }
 }

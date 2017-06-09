@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends AppCompatActivity {
 
     private DatabaseReference database;
     private EditText loginEditTxt;
@@ -30,6 +30,8 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getSupportActionBar().hide();
 
         int flags = getIntent().getFlags();
 
@@ -73,9 +75,15 @@ public class LoginActivity extends Activity {
                             }
 
                             if (usuario != null && usuario.getSenha().equals(senha)) {
-                                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                                intent.putExtra("usuario", usuario);
-                                startActivity(intent);
+                                if(usuario.isPalestrante()) {
+                                    Intent intent = new Intent(LoginActivity.this, MinhaPalestraActivity.class);
+                                    intent.putExtra("usuario", usuario);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(LoginActivity.this, FiltroActivity.class);
+                                    intent.putExtra("usuario", usuario);
+                                    startActivity(intent);
+                                }
                             } else {
                                 Toast.makeText(LoginActivity.this, "Usuario ou senha inválidos", Toast.LENGTH_SHORT).show();
                             }

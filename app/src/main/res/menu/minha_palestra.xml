@@ -4,7 +4,13 @@
     <item
         android:id="@+id/action_minha_palestra_sair"
         android:icon="@drawable/ic_sair_accent"
-        android:title="Sair"
+        android:title="Ir para o menu"
+        app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/action_minha_palestra_logout"
+        android:icon="@drawable/ic_sair_accent"
+        android:title="Logout"
         app:showAsAction="collapseActionView"/>
 
     <item

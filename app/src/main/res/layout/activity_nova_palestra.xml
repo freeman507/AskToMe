@@ -95,7 +95,7 @@
         android:ems="10"
         android:id="@+id/codigo_palestra"
         android:layout_weight="1"
-        android:hint="Identificador da palestra"
+        android:hint="Apelido da palestra"
         android:theme="@style/Theme.App.Base"/>
 
     <Button

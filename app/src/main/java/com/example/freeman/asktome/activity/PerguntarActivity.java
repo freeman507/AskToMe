@@ -57,7 +57,7 @@ public class PerguntarActivity extends AppCompatActivity {
                 Pergunta pergunta = new Pergunta();
                 pergunta.setCodigoPalestra(palestra.getCodigo());
                 pergunta.setEmailUsuario(usuario.getEmail());
-                pergunta.setNomeUsuario(checked ? "Anônimo" : usuario.getNome() + " " + usuario.getSobrenome());
+                pergunta.setNomeUsuario(checked ? "Anônimo" : usuario.getNome());
                 pergunta.setPergunta(string);
                 pergunta.setRespondida(false);
                 pergunta.setTimestamp(new Date().getTime());

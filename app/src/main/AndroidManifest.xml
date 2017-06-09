@@ -37,7 +37,7 @@
             android:label="Minhas Palestras" />
         <activity
             android:name=".activity.ProcurarActivity"
-            android:label="Procurar" />
+            android:label="Resultado da busca" />
         <activity
             android:name=".activity.FiltroActivity"
             android:label="Procurar Palestra" />
