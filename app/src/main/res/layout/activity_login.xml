@@ -104,7 +104,7 @@
             android:clickable="true"/>
 
         <TextView
-            android:text="Esqueseu a senha?"
+            android:text="Esqueceu a senha?"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/login_esqueceu_senha"
